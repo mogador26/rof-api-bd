@@ -1,0 +1,11 @@
+GET /api/operateurs_funeraires?code_departement=13 200 103951 - 6.042 ms
+GET /api/operateurs_funeraires?code_departement=26 200 35371 - 1.130 ms
+GET /api/operateurs_funeraires?code_departement=13 200 103951 - 8.924 ms
+GET /api/operateurs_funeraires?code_departement=13 500 1289 - 2.775 ms
+GET /api/operateurs_funeraires?code_departement=13 200 103951 - 18.576 ms
+GET /api/operateurs_funeraires?code_departement=13 404 164 - 7.068 ms
+GET /api/v1/operateurs_funeraires?code_departement=13 200 103951 - 13.773 ms
+GET /api/v1/operateurs_funeraires?code_departement=13 200 103951 - 43.582 ms
+GET /api/v1/operateurs_funeraires?code_departement=26 200 35371 - 19.444 ms
+GET /api/v1/operateurs_funeraires?code_departement=26 200 35371 - 8.587 ms
+GET /api/v1/operateurs_funeraires?code_departement=07 200 28278 - 1.750 ms
