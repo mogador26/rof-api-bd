@@ -1,24 +1,45 @@
 const express = require('express')
 const operateurs_funeraires = require('./data/rof-update.json')
-const { port, windowRequest, maxRequestByIp, dirLog } = require('./config/config.js');
+const { port, windowRequest, maxRequestByIp, dirLog, userDB, passDB, uriDB } = require('./config/config.js');
 const rateLimit = require("express-rate-limit");
 const morgan = require('morgan');
-const ops = require('./models/operateursFuneraires.js');
+const mongoose = require('mongoose');
+const ops = require('./controller/operateursFuneraires.js');
 const fs = require('fs')
 const path = require('path')
-
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./swagger.yaml');
 // app 
 const app = express()
 app.use(express.json())
 
-// limit
+
+// connect database
+/*var options = {
+    server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
+    replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }
+};*/
+
+var options = { useNewUrlParser: true, useUnifiedTopology: true };
+const urlDB = "mongodb+srv://" + userDB + ":" + passDB + "@" + uriDB;
+console.log(urlDB);
+
+mongoose.connect(urlDB, options);
+var myDB = mongoose.connection;
+
+myDB.on('open', function() {
+    console.log("Connexion à la base OK");
+});
+
+
+// limit access by IP
 const limiter = rateLimit({
     windowMs: windowRequest,
     max: maxRequestByIp, //limit each IP to 100 requests per windowMs
     message: "Too many accounts created from this IP, please try again after a minute"
 
 });
-
 
 var dir = __dirname + dirLog
 
@@ -42,50 +63,37 @@ app.use(morgan("common"));
 //var accessLogStream = fs.createWriteStream(path.join(dir, 'access.log'), { flags: 'a' })
 //app.use(morgan(':method :url :status :res[content-length] - :response-time ms', { stream: accessLogStream }));
 
-app.get('/api/v1/operateurs_funeraires', (req, res) => {
+// ressource de type /search?q=
+app.get('/api/v1/operateurs_funeraires/search', ops.getOperateursFunerairesBySearch, (req, res, next) => {
 
-    if (req.query.code_departement != null) {
-        operateurs = getByCodeDepartement(req);
-        if (operateurs != null) {
-            json = ops.convertFormat(operateurs);
-            //res.status(200).json(json);
-            res.setHeader('Content-Type', 'application/json;charset=utf-8');
-            if (json != null) {
-                res.status(200).json(json);
-            } else {
-                res.status(404).json({ 'message': 'aucune information' });
-            }
-            //res.status(200).send(JSON.stringify(json));
-        } else {
-            res.status(404).json({ 'message': 'aucune information' });
-        }
-    } else {
+    res.setHeader('Content-Type', 'application/json;charset=utf-8');
+    res.send();
 
-        if (req.query.code_postal != null) {
-            operateurs = getByCodePostal(req);
-            if (operateurs != null) {
-                json = ops.convertFormat(operateurs);
-                res.setHeader('Content-Type', 'application/json;charset=utf-8');
-                if (json != null) {
-                    res.status(200).json(json);
-                } else {
-                    res.status(404).json({ 'message': 'aucune information' });
-                }
-
-            } else {
-                res.status(404).json({ 'message': 'aucune information' });
-            }
-        } else {
-            json = convertFormat(operateurs_funeraires);
-            res.status(200).json(json);
-        }
-    }
 })
+
+// ressource et filtre paramètres 
+app.get('/api/v1/operateurs_funeraires', ops.getOperateursFunerairesByCodePostal, (req, res, next) => {
+    res.setHeader('Content-Type', 'application/json;charset=utf-8');
+    res.send();
+
+})
+
+
 
 app.get('/api/v1/operateurs_funeraires/status', (req, res) => {
 
-    res.status(200).json({ 'status': 'OK' })
+    res.status(200).json({ status: 'OK' })
 });
+
+
+//swagger api operateurs
+app.use('/api/v1/operateurs_funeraires/api-docs', function(req, res, next) {
+    swaggerDocument.host = req.get('host');
+    req.swaggerDoc = swaggerDocument;
+    next();
+}, swaggerUi.serve, swaggerUi.setup());
+
+
 
 app.listen(port, () => {
     console.log("Serveur à l'écoute sur le port " + port)
