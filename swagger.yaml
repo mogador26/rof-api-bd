@@ -1,0 +1,209 @@
+swagger: '2.0'
+info:
+  title: API Opérateurs funéraires
+  description: |-
+
+    ## Description
+    Cette API a pour but de présenter les données relatives aux opérateurs funéraires. 
+    Ces données sont référencées généralement dans les préfectures.
+  version: '1.0 béta'
+  contact:
+    email: contact-equipe-api@interieur.gouv.fr
+  license:
+    name: Licence soumis à contrôle
+host: qualification.ines-se.dsic.minint.fr
+basePath: /v1/operateurs_funeraires/
+schemes:
+  - https
+produces:
+  - application/json
+paths:
+  /search:
+    get:
+      operationId: search
+      summary: recherche des caractéristiques d'un ou plusieurs opérateurs funéraires.
+      tags:
+        - opérateurs funéraires
+      description: une recherche globale selon la notation Google
+      parameters:
+        - name: q
+          required: true
+          in: query
+          type: string
+          description: Saisir les caractéristiques d'un opérateur funéraire
+        - name: code_departement
+          in: query
+          type: string
+          description: Filtre sur le code département
+        - name: prestations
+          in: query
+          type: string
+          enum:
+            - 'Transport de corps avant et après mise en bière'
+            - 'Organisation des obsèques'
+            - 'Soins de conservation'
+            - 'Fourniture des housses, des cercueils et de leurs accessoires, des urnes cinéraires'
+            - 'Gestion et utilisation des chambres funéraires'
+            - 'Fourniture des corbillards et des voitures de deuils'
+            - 'Fourniture de personnel et des objets et prestations nécessaires aux obsèques'
+            - "Gestion d'un crématorium"
+        - name: sort
+          in: query
+          type: array
+          items:
+            type: string
+            enum:
+              - code_departement
+              - _id
+          description: '> tri du résultat obtenu'
+        - name: desc
+          in: query
+          type: array
+          items:
+            type: string
+            enum:
+              - code_departement
+              - _id
+          description: '> tri par odre décroissant'
+        - name: limit
+          in: query
+          type: integer
+          minimum: 1
+          default: 10
+          description: limite le nombre d'opérateurs funéraires retournés.
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/operateurs_funeraires'
+        '400':
+          description: format incorrect
+          schema:
+            $ref: '#/definitions/errorMessage'
+        '401':
+          description: non autorisé
+          schema:
+            $ref: '#/definitions/errorMessage'
+        '404':
+          description: aucune donnée trouvée
+          schema:
+            $ref: '#/definitions/errorMessage'
+        '500':
+          description: erreur technique
+  '/':
+    get:
+      operationId: 'getByCriteres'
+      summary: selection d'opétateurs funéraires
+      tags:
+        - opérateurs funéraires
+      parameters:
+        - name: code_departement
+          in: query
+          required: false
+          type: string
+        - name: code_postal
+          in: query
+          type: string
+        - name: prestations
+          in: query
+          type: string
+          enum:
+            - 'Transport de corps avant et après mise en bière'
+            - 'Organisation des obsèques'
+            - 'Soins de conservation'
+            - 'Fourniture des housses, des cercueils et de leurs accessoires, des urnes cinéraires'
+            - 'Gestion et utilisation des chambres funéraires'
+            - 'Fourniture des corbillards et des voitures de deuils'
+            - 'Fourniture de personnel et des objets et prestations nécessaires aux obsèques'
+            - "Gestion d'un crématorium"
+        
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/operateurs_funeraires'
+        '400':
+          description: format incorrect
+          schema:
+            $ref: '#/definitions/errorMessage'
+        '401':
+          description: non autorisé
+          schema:
+            $ref: '#/definitions/errorMessage'
+        '404':
+          description: aucun opérateur connu
+          schema:
+            $ref: '#/definitions/errorMessage'
+        '500':
+          description: erreur technique
+definitions:
+  operateurs_funeraires:
+    type: object
+    properties:
+      operateurs_funeraires:
+        type: array
+        items:
+          properties:
+            _id:
+              type: string
+              description: 'identifiant technique'
+            nom_commercial:
+              type: string
+              description: "nom commercial de l'opérateur funéraire"
+            numero_siren:
+              type: string
+              description: numéro de siren
+            forme_juridique:
+              type: string
+            activites:
+              type: string
+              description: les activités des opérateurs funéraires
+            prestations:
+              type: object
+              properties:
+                code:
+                  type: string
+                libelle:
+                  type: string
+            prestations_sous_traitees:
+              type: string
+              description: prestations sous traitees
+            courriel:
+              type: string
+            telephone:
+              type: string
+            telephone_mobile:
+              type: string
+            adresse:
+              type: object
+              properties:
+                libelle:
+                  type: string
+                complement:
+                  type: string
+                  description: ''
+                code_postal:
+                  type: string
+                  description: code postal de la commune
+                code_departement:
+                  type: string
+                  description: code code_departement
+                ville: 
+                  type: string
+            etranger:
+                type: boolean
+      hits:
+        type: integer
+  errorMessage:
+    type: object
+    properties:
+      erreur:
+        type: object
+        properties:
+          code:
+            type: integer
+            description: Code de l'erreur
+          message:
+            type: string
+            description: Libellé de l'erreur
+  
