@@ -1,21 +1,16 @@
- ### API ROF
+ ### API ROF With MongoDB
 
 ## Objectif
 
-L'objectif est d'exposer le référentiel ROF sous forme d'API. Il s'agit dans notre contexte d'effectuer :
+L'objectif est d'exposer le référentiel ROF sous forme d'API. Les données sont exposées dans une base de donnée MongoDB :
 
-- Data Prep
-  - prise en compte du référentiel des opérateurs funéraires sous forme JSON
   - ADU : 
     - adresses géocodées
     - ajout du numéro de siret
-    - ajout des libellés des prestations 
-    - Chargement des données
-      - Il s'agit actuellement d'un simple fichier. Compte tenu de la taille du référentiel ce n'est pas trés contraignant. On pourrait imaginer une exposition sous mongodb pour une recherche textuelle plus aboutie
 
 # Installation
 
-`git clone https://github.com/mogador26/rof.git`
+`git clone https://github.com/mogador26/rof-api-bd.git`
 
 - debuggage en mode dev
 `npm install nodemon --save-dev -g`
@@ -27,6 +22,9 @@ L'objectif est d'exposer le référentiel ROF sous forme d'API. Il s'agit dans n
   - serve-favicon
   - express-rate-limit
   - dotenv 
+  - swagger-ui-express
+  - yamljs
+  - mongoose
 
 
 # Exécution
