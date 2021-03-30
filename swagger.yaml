@@ -80,7 +80,7 @@ paths:
           schema:
             $ref: '#/definitions/errorMessage'
         '429':
-          description: "limite des appels par IP atteinte"
+          description: "limite atteinte des appels par IP"
         '500':
           description: erreur technique
   '/':
@@ -124,7 +124,7 @@ paths:
           schema:
             $ref: '#/definitions/errorMessage'
         '429':
-          description: "limite des appels par IP atteinte"
+          description: "limite atteinte des appels par IP"
         '500':
           description: erreur technique
   '/healtcheck':
