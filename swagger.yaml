@@ -79,6 +79,8 @@ paths:
           description: aucune donnée trouvée
           schema:
             $ref: '#/definitions/errorMessage'
+        '429':
+          description: "limite des appels par IP atteinte"
         '500':
           description: erreur technique
   '/':
@@ -121,6 +123,8 @@ paths:
           description: aucun opérateur connu
           schema:
             $ref: '#/definitions/errorMessage'
+        '429':
+          description: "limite des appels par IP atteinte"
         '500':
           description: erreur technique
   '/healtcheck':
