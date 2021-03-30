@@ -2,9 +2,12 @@ const mongoose = require('mongoose');
 
 var operateursFunerairesSchema = mongoose.Schema({
     _id: Number,
+    raison_sociale: String,
     nom_commercial: String,
     numero_siren: String,
     forme_juridique: String,
+
+
     activites: String,
     prestations: [{
         code: String,
