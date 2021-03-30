@@ -10,16 +10,12 @@ const path = require('path')
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 const swaggerDocument = YAML.load('./swagger.yaml');
-// app 
+const healthCheck = require('express-healthcheck');
+
+// app
 const app = express()
 app.use(express.json())
 
-
-// connect database
-/*var options = {
-    server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
-    replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }
-};*/
 
 var options = { useNewUrlParser: true, useUnifiedTopology: true };
 const urlDB = "mongodb+srv://" + userDB + ":" + passDB + "@" + uriDB;
@@ -37,7 +33,7 @@ myDB.on('open', function() {
 const limiter = rateLimit({
     windowMs: windowRequest,
     max: maxRequestByIp, //limit each IP to 100 requests per windowMs
-    message: "Too many accounts created from this IP, please try again after a minute"
+    message: "trop d'appels réalisés, veuillez essayer dans quelques minutes"
 
 });
 
@@ -65,28 +61,18 @@ app.use(morgan("common"));
 
 // ressource de type /search?q=
 app.get('/api/v1/operateurs_funeraires/search', ops.getOperateursFunerairesBySearch, (req, res, next) => {
-
     res.setHeader('Content-Type', 'application/json;charset=utf-8');
     res.send();
-
 })
 
 // ressource et filtre paramètres 
-app.get('/api/v1/operateurs_funeraires', ops.getOperateursFunerairesByCodePostal, (req, res, next) => {
+app.get('/api/v1/operateurs_funeraires', ops.getOperateursFunerairesByParam, (req, res, next) => {
     res.setHeader('Content-Type', 'application/json;charset=utf-8');
     res.send();
-
 })
 
 
-
-app.get('/api/v1/operateurs_funeraires/status', (req, res) => {
-
-    res.status(200).json({ status: 'OK' })
-});
-
-
-//swagger api operateurs
+//swagger api operateurs funéraires
 app.use('/api/v1/operateurs_funeraires/api-docs', function(req, res, next) {
     swaggerDocument.host = req.get('host');
     req.swaggerDoc = swaggerDocument;
@@ -94,19 +80,20 @@ app.use('/api/v1/operateurs_funeraires/api-docs', function(req, res, next) {
 }, swaggerUi.serve, swaggerUi.setup());
 
 
+//healthcheck
+const serverStatus = () => {
+    return {
+        etat: 'up',
+        base: mongoose.STATES[mongoose.connection.readyState],
+        date: new Date()
+    }
+};
+
+app.use('/api/v1/operateurs_funeraires/healthcheck', require('express-healthcheck')({
+    healthy: serverStatus
+}));
+
 
 app.listen(port, () => {
     console.log("Serveur à l'écoute sur le port " + port)
 })
-
-function getByCodeDepartement(req) {
-    const code_departement = req.query.code_departement
-    const operateurs = operateurs_funeraires.filter(operateurs => operateurs.Département === code_departement)
-    return operateurs;
-}
-
-function getByCodePostal(req) {
-    const code_postal = req.query.code_postal
-    const operateurs = operateurs_funeraires.filter(operateurs => operateurs.Code_postal === code_postal)
-    return operateurs;
-}
