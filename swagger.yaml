@@ -5,15 +5,16 @@ info:
 
     ## Description
     Cette API a pour but de présenter les données relatives aux opérateurs funéraires. 
-    Ces données sont référencées généralement dans les préfectures.
+    Ces données sont référencées et publiées généralement au sein des préfectures.
   version: '1.0 béta'
   contact:
     email: contact-equipe-api@interieur.gouv.fr
   license:
-    name: Licence soumis à contrôle
+    name: libre
 host: qualification.ines-se.dsic.minint.fr
-basePath: /v1/operateurs_funeraires/
+basePath: /api/v1/operateurs_funeraires/
 schemes:
+  - http
   - https
 produces:
   - application/json
@@ -24,7 +25,7 @@ paths:
       summary: recherche des caractéristiques d'un ou plusieurs opérateurs funéraires.
       tags:
         - opérateurs funéraires
-      description: une recherche globale selon la notation Google
+      description: une recherche globale selon la notation Google. Attention, il ne s'agit pas d'une recherche floue
       parameters:
         - name: q
           required: true
@@ -34,36 +35,30 @@ paths:
         - name: code_departement
           in: query
           type: string
-          description: Filtre sur le code département
-        - name: prestations
+          description: filtre sur le code département
+        - name: code_postal
+          in: query
+          type: string
+          description: filtre sur le code postal
+        - name: sort
           in: query
           type: string
           enum:
-            - 'Transport de corps avant et après mise en bière'
-            - 'Organisation des obsèques'
-            - 'Soins de conservation'
-            - 'Fourniture des housses, des cercueils et de leurs accessoires, des urnes cinéraires'
-            - 'Gestion et utilisation des chambres funéraires'
-            - 'Fourniture des corbillards et des voitures de deuils'
-            - 'Fourniture de personnel et des objets et prestations nécessaires aux obsèques'
-            - "Gestion d'un crématorium"
-        - name: sort
-          in: query
-          type: array
-          items:
-            type: string
-            enum:
-              - code_departement
-              - _id
-          description: '> tri du résultat obtenu'
+            - code_departement
+            - code_postal
+            - nom_commercial
+            - raison_sociale
+            - _id
+          description: '> tri du résultat obtenu '
         - name: desc
           in: query
-          type: array
-          items:
-            type: string
-            enum:
-              - code_departement
-              - _id
+          type: string
+          enum:
+            - code_departement
+            - code_postal
+            - nom_commercial
+            - raisons_sociale
+            - _id
           description: '> tri par odre décroissant'
         - name: limit
           in: query
@@ -80,10 +75,6 @@ paths:
           description: format incorrect
           schema:
             $ref: '#/definitions/errorMessage'
-        '401':
-          description: non autorisé
-          schema:
-            $ref: '#/definitions/errorMessage'
         '404':
           description: aucune donnée trouvée
           schema:
@@ -92,7 +83,7 @@ paths:
           description: erreur technique
   '/':
     get:
-      operationId: 'getByCriteres'
+      operationId: 'getByParams'
       summary: selection d'opétateurs funéraires
       tags:
         - opérateurs funéraires
@@ -126,16 +117,24 @@ paths:
           description: format incorrect
           schema:
             $ref: '#/definitions/errorMessage'
-        '401':
-          description: non autorisé
-          schema:
-            $ref: '#/definitions/errorMessage'
         '404':
           description: aucun opérateur connu
           schema:
             $ref: '#/definitions/errorMessage'
         '500':
           description: erreur technique
+  '/healtcheck':
+    get:
+      operationId: 'getHealthCheck'
+      summary: etat de l'api
+      tags:
+        - opérateurs funéraires
+      responses:
+        '200':
+          description: etat de l'api
+          schema:
+            $ref: '#definitions/healthcheckMessage'
+
 definitions:
   operateurs_funeraires:
     type: object
@@ -147,6 +146,9 @@ definitions:
             _id:
               type: string
               description: 'identifiant technique'
+            raison_sociale:
+              type: string
+              description: 'raison sociale'
             nom_commercial:
               type: string
               description: "nom commercial de l'opérateur funéraire"
@@ -194,6 +196,16 @@ definitions:
                 type: boolean
       hits:
         type: integer
+  
+  healthcheckMessage:
+    type: object
+    properties:
+      etat:
+        type: string
+      base:
+        type: string
+      date:
+        type: string
   errorMessage:
     type: object
     properties:
