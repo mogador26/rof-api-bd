@@ -8,6 +8,7 @@ module.exports = {
     dirLog: process.env.DIR_LOG,
     userDB: process.env.USER_DB,
     passDB: process.env.PASSWORD_DB,
-    uriDB: process.env.URI_DB
+    uriDB: process.env.URI_DB,
+    limitSearch: process.env.LIMIT_SEARCH
 
 }
