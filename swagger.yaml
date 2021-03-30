@@ -14,8 +14,8 @@ info:
 host: qualification.ines-se.dsic.minint.fr
 basePath: /api/v1/operateurs_funeraires/
 schemes:
-  - http
   - https
+  - http
 produces:
   - application/json
 paths:
@@ -113,7 +113,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/operateurs_funeraires'
-        '400':
+        :'400':
           description: format incorrect
           schema:
             $ref: '#/definitions/errorMessage'
