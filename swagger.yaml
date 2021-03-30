@@ -113,7 +113,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/operateurs_funeraires'
-        :'400':
+        '400':
           description: format incorrect
           schema:
             $ref: '#/definitions/errorMessage'
