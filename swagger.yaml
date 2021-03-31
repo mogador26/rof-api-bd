@@ -86,7 +86,7 @@ paths:
   '/':
     get:
       operationId: 'getByParams'
-      summary: selection d'opétateurs funéraires
+      summary: selection d'opérateurs funéraires
       tags:
         - opérateurs funéraires
       parameters:
