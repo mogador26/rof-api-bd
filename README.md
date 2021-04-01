@@ -45,4 +45,7 @@ Pour ce cas Mongo Atlas est utilisé sans les spécificités de recherche floue 
 `npm run dev`
 
 
+## Présentations
+- Ajout de slides conçus avec [slides.com](https://slides.com/) / [reveal.js](https://revealjs.com/) qui présentent quelques fonctionnalités de l'API [*{site}/slides-api] 
+
 *ADU* : A définir Ultérieurement
