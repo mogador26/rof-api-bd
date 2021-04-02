@@ -71,6 +71,9 @@ app.get('/api/v1/operateurs_funeraires', ops.getOperateursFunerairesByParam, (re
     res.send();
 })
 
+app.get('/slides-api', function(req, res) {
+    res.sendFile(__dirname + '/html/slides-deck-api-rof.html');
+});
 
 //swagger api operateurs funéraires
 app.use('/api/v1/operateurs_funeraires/api-docs', function(req, res, next) {

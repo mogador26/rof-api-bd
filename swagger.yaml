@@ -79,12 +79,14 @@ paths:
           description: aucune donnée trouvée
           schema:
             $ref: '#/definitions/errorMessage'
+        '429':
+          description: "limite atteinte des appels par IP"
         '500':
           description: erreur technique
   '/':
     get:
       operationId: 'getByParams'
-      summary: selection d'opétateurs funéraires
+      summary: selection d'opérateurs funéraires
       tags:
         - opérateurs funéraires
       parameters:
@@ -121,6 +123,8 @@ paths:
           description: aucun opérateur connu
           schema:
             $ref: '#/definitions/errorMessage'
+        '429':
+          description: "limite atteinte des appels par IP"
         '500':
           description: erreur technique
   '/healtcheck':
