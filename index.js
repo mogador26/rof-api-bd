@@ -1,28 +1,31 @@
 const express = require('express')
-const operateurs_funeraires = require('./data/rof-update.json')
 const { port, windowRequest, maxRequestByIp, dirLog, userDB, passDB, uriDB } = require('./config/config.js');
 const rateLimit = require("express-rate-limit");
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const ops = require('./controller/operateursFuneraires.js');
+const opsGeo = require('./controller/operateursFunerairesGeo')
 const fs = require('fs')
 const path = require('path')
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 const swaggerDocument = YAML.load('./swagger.yaml');
-const healthCheck = require('express-healthcheck');
+var healthCheck = require('express-healthcheck');
 
 // app
 const app = express()
 app.use(express.json())
 
-
-var options = { useNewUrlParser: true, useUnifiedTopology: true };
+let options = { useNewUrlParser: true, useUnifiedTopology: true };
 const urlDB = "mongodb+srv://" + userDB + ":" + passDB + "@" + uriDB;
 console.log(urlDB);
 
 mongoose.connect(urlDB, options);
 var myDB = mongoose.connection;
+
+if (process.env.NODE_ENV != 'production') {
+    mongoose.set("debug", true);
+}
 
 myDB.on('open', function() {
     console.log("Connexion à la base OK");
@@ -43,15 +46,15 @@ if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
 }
 
+//Middleware
+
 // handle the limiter only for the api
 app.use("/api", limiter);
-
 
 // Serve Favicon
 var favicon = require('serve-favicon');
 app.use(favicon('favicon.ico'));
 
-// Middleware
 //log
 app.use(morgan("common"));
 
@@ -71,11 +74,21 @@ app.get('/api/v1/operateurs_funeraires', ops.getOperateursFunerairesByParam, (re
     res.send();
 })
 
+// ressource de recherche par coordonnées géographiques
+
+app.post('/api/v1/operateurs_funeraires/geo/', opsGeo.getOperateursFunerairesByGeo, (req, res, next) => {
+
+    res.setHeader('Content-Type', 'application/json;charset=utf-8');
+    res.send();
+
+})
+
 app.get('/slides-api', function(req, res) {
     res.sendFile(__dirname + '/html/slides-deck-api-rof.html');
 });
 
-//swagger api operateurs funéraires
+// Middleware
+// swagger api operateurs funéraires
 app.use('/api/v1/operateurs_funeraires/api-docs', function(req, res, next) {
     swaggerDocument.host = req.get('host');
     req.swaggerDoc = swaggerDocument;
@@ -96,6 +109,11 @@ app.use('/api/v1/operateurs_funeraires/healthcheck', require('express-healthchec
     healthy: serverStatus
 }));
 
+// ressource par identifiant technique
+app.get('/api/v1/operateurs_funeraires/:id', ops.getOperateursFunerairesById, (req, res, next) => {
+    res.setHeader('Content-Type', 'application/json;charset=utf-8');
+    res.send();
+})
 
 app.listen(port, () => {
     console.log("Serveur à l'écoute sur le port " + port)
