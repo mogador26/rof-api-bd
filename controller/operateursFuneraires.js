@@ -141,6 +141,7 @@ module.exports.getOperateursFunerairesBySearch = (req, res, next) => {
 
     var conditions;
 
+    console.log('BySearch')
     conditions = verifySearchParams(req);
 
     if ((conditions.countParam == 0) || (conditions.requiredParam == false)) {
@@ -170,7 +171,6 @@ module.exports.getOperateursFunerairesBySearch = (req, res, next) => {
     }
 };
 
-
 module.exports.getOperateursFunerairesByParam = (req, res, next) => {
 
     var conditions
@@ -183,6 +183,42 @@ module.exports.getOperateursFunerairesByParam = (req, res, next) => {
     } else {
 
         operateursFuneraires.find(conditions.data).limit(conditions.limit).then(operateurs_funeraires => {
+                if (!operateurs_funeraires) {
+                    res.status(404).json({ code: 404, message: "données non trouvées" });
+                } else {
+                    if (operateurs_funeraires.length == 0) {
+                        res.status(404).json({ code: 404, message: "données non trouvées" });
+                    } else {
+                        let message = {
+                            hits: operateurs_funeraires.length,
+                            operateurs_funeraires
+                        }
+                        res.status(200).json(message);
+                    }
+                }
+            })
+            .catch(
+                (error) => {
+                    console.log(error)
+                    res.status(500).json({ code: 500, message: error });
+                }
+            );
+
+    }
+};
+
+module.exports.getOperateursFunerairesById = (req, res, next) => {
+
+    console.log('byId')
+    id_operateur_funeraire = req.params.id
+
+    if (id_operateur_funeraire == null) {
+        res.status(400).json({ code: 400, message: "format incorrect" });
+    } else {
+
+        let id_operateur = mongoose.Types.ObjectId(id_operateur_funeraire)
+        let conditions = { _id: id_operateur }
+        operateursFuneraires.find(conditions).then(operateurs_funeraires => {
                 if (!operateurs_funeraires) {
                     res.status(404).json({ code: 404, message: "données non trouvées" });
                 } else {
