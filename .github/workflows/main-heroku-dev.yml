@@ -10,12 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - shell: bash
-        env:
-          USER_DB: ${{secrets.USER_DB_R}}
-          PASSWORD_DB: ${{secrets.PASSWORD_DB_R}}
-          URI_DB: ${{secrets.URI_DB_DEV}}
-          NODE_ENV: development
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
@@ -26,4 +20,9 @@ jobs:
           region: eu
           procfile: true
           healthcheck: true
+        env:
+          USER_DB: ${{secrets.USER_DB_R}}
+          PASSWORD_DB: ${{secrets.PASSWORD_DB_R}}
+          URI_DB: ${{secrets.URI_DB_DEV}}
+          NODE_ENV: development
           
