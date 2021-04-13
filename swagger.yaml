@@ -6,6 +6,7 @@ info:
     ## Description
     Cette API a pour but de présenter les données relatives aux opérateurs funéraires. 
     Ces données sont référencées et publiées généralement au sein des préfectures.
+    
   version: '1.0 béta'
   contact:
     email: contact-equipe-api@interieur.gouv.fr
@@ -196,12 +197,12 @@ paths:
   '/healthcheck':
     get:
       operationId: 'getHealthCheck'
-      summary: etat de l'api
+      summary: état de l'api
       tags:
         - opérateurs funéraires
       responses:
         '200':
-          description: etat de l'api
+          description: état de l'api
           schema:
             $ref: '#definitions/healthcheckMessage'
 
