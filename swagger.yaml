@@ -6,6 +6,7 @@ info:
     ## Description
     Cette API a pour but de présenter les données relatives aux opérateurs funéraires. 
     Ces données sont référencées et publiées généralement au sein des préfectures.
+    
   version: '1.0 béta'
   contact:
     email: contact-equipe-api@interieur.gouv.fr
@@ -83,7 +84,36 @@ paths:
           description: "limite atteinte des appels par IP"
         '500':
           description: erreur technique
-  '/':
+
+  /{id_operateur_funeraire}:
+    get:
+      operationId: 'getById'
+      summary: "selection d'un opérateur funéraire par identifiant technique"
+      tags:
+        - opérateurs funéraires
+      parameters:
+        - in: path
+          name: id_operateur_funeraire
+          type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/operateurs_funeraires'
+        '400':
+          description: format incorrect
+          schema:
+            $ref: '#/definitions/errorMessage'
+        '404':
+          description: aucun opérateur connu
+          schema:
+            $ref: '#/definitions/errorMessage'
+        '429':
+          description: "limite atteinte des appels par IP"
+        '500':
+          description: erreur technique
+  /:
     get:
       operationId: 'getByParams'
       summary: selection d'opérateurs funéraires
@@ -127,15 +157,52 @@ paths:
           description: "limite atteinte des appels par IP"
         '500':
           description: erreur technique
-  '/healtcheck':
+  '/geo':
+    post:
+      operationId: 'getOperateursByGeo'
+      summary: 'recherche par coordonnées géographiques **experimental**'
+      tags:
+        - opérateurs funéraires
+      externalDocs:
+        url: http://geojson.org/geojson-spec.html#geometry-objects
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "coordonnées geographique au format geojson"
+        required: true
+        schema:
+          $ref:  "#/definitions/postGeoMessage"
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/operateurs_funeraires'
+        '400':
+          description: format incorrect
+          schema:
+            $ref: '#/definitions/errorMessage'
+        '404':
+          description: aucun opérateur connu
+          schema:
+            $ref: '#/definitions/errorMessage'
+        '429':
+          description: "limite atteinte des appels par IP"
+        '500':
+          description: erreur technique
+      
+  '/healthcheck':
     get:
       operationId: 'getHealthCheck'
-      summary: etat de l'api
+      summary: état de l'api
       tags:
         - opérateurs funéraires
       responses:
         '200':
-          description: etat de l'api
+          description: état de l'api
           schema:
             $ref: '#definitions/healthcheckMessage'
 
@@ -210,6 +277,44 @@ definitions:
         type: string
       date:
         type: string
+ 
+  postGeoMessage:
+    type: object
+    properties:
+      features:
+        type: array
+        items:
+          properties:
+            type: 
+              type: string
+              default: "Feature"
+            geometry:
+              properties:
+                type: 
+                  type: string
+                  default: "Point"
+                coordinates:
+                  type: array
+                  minItems: 1
+                  maxItems: 2
+                  items:
+                    type: number
+      max_distance:
+        type: number
+        description: distance en kms
+        enum:
+          - 10
+          - 15
+          - 20
+          - 25
+          - 30
+      limit:
+        type: number
+        minimum: 1
+        maximum: 300
+        default: 10
+        description: "limite du nombre d'adresses retourné"
+
   errorMessage:
     type: object
     properties:

@@ -1,0 +1,9 @@
+Dockerfile
+.dockerignore
+./node_modules
+./logs
+README.md
+.env.sample
+./Procfile
+*.log
+*.sh
