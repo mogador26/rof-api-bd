@@ -1,23 +1,30 @@
 const express = require('express')
-const { port, windowRequest, maxRequestByIp, dirLog, userDB, passDB, uriDB } = require('./config/config.js');
+const { port, windowRequest, maxRequestByIp, dirLog, protocolDB, userDB, passDB, uriDB } = require('./config/config.js');
 const rateLimit = require("express-rate-limit");
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const ops = require('./controller/operateursFuneraires.js');
 const opsGeo = require('./controller/operateursFunerairesGeo')
-const fs = require('fs')
-const path = require('path')
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 const swaggerDocument = YAML.load('./swagger.yaml');
+
 var healthCheck = require('express-healthcheck');
+var urlDB="";
 
 // app
 const app = express()
 app.use(express.json())
 
 let options = { useNewUrlParser: true, useUnifiedTopology: true };
-const urlDB = "mongodb+srv://" + userDB + ":" + passDB + "@" + uriDB;
+if (userDB.length!=0 && passDB.length!=0){
+  urlDB = protocolDB +"://" + userDB + ":" + passDB + "@" + uriDB;
+}else{
+  urlDB = protocolDB +"://" + uriDB;
+}
+
+//urlDB = protocolDB + "://" + uriDB;
+
 console.log(urlDB);
 
 mongoose.connect(urlDB, options);
@@ -40,11 +47,6 @@ const limiter = rateLimit({
 
 });
 
-var dir = __dirname + dirLog
-
-if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir);
-}
 
 //Middleware
 
@@ -56,11 +58,7 @@ var favicon = require('serve-favicon');
 app.use(favicon('favicon.ico'));
 
 //log
-app.use(morgan("common"));
-
-// create a write stream (in append mode)
-//var accessLogStream = fs.createWriteStream(path.join(dir, 'access.log'), { flags: 'a' })
-//app.use(morgan(':method :url :status :res[content-length] - :response-time ms', { stream: accessLogStream }));
+app.use(morgan('combined'));
 
 // ressource de type /search?q=
 app.get('/api/v1/operateurs_funeraires/search', ops.getOperateursFunerairesBySearch, (req, res, next) => {
