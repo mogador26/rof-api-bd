@@ -64,6 +64,13 @@ technique :
 - mode developpement avec nodemon :
 `npm run dev`
 
+# Docker
+- création de l'image docker
+`./create_docker_image.sh`
+
+- exécution de l'image docker
+`./exec_docker_image.sh`
+dans notre cas le fichier .env est passé en paramètre de la commande `docker run`
 
 ## Présentations
 - Ajout de slides conçus avec [slides.com](https://slides.com/) / [reveal.js](https://revealjs.com/) qui présentent quelques fonctionnalités de l'API (./html/)
