@@ -1,0 +1,33 @@
+version: "3"
+services:
+  mongo:
+    container_name: mongo-api-rof
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "user_rw"
+      MONGO_INITDB_ROOT_PASSWORD: "secret"
+      MONGO_INITDB_DATABASE: "rof-db"
+    ports:
+      - "27018:27017"
+  service:
+    container_name: app-api-rof
+    restart: always
+    build: .
+    volumes:
+      - .:/app
+      - ./logs:/usr/src/app/error.log
+    environment:
+      PORT: 3000
+      WINDOW_TIME: 900000
+      MAX_REQUEST_BY_IP: 100
+      PROTOCOL_DB: "mongodb"
+      USER_DB: "user_rw"
+      PASSWORD_DB: "secret"
+      URI_DB: "mongo:27017/rof-db"
+      LIMIT_SEARCH: 10
+    depends_on:
+      - mongo
+    ports:
+      - "3000:3000"

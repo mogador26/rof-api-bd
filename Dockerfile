@@ -5,11 +5,13 @@ ARG https_proxy
 ARG npm_registry
 ARG no_proxy
 
-ENV PORT 3000
+ENV PORT 4000
+ENV NODE_ENV production
 
 # Create app directory
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
+
 
 # use proxy & private npm registry
 # With internal npm repo (autosigned) disable strict ssl : strict-ssl false
@@ -27,14 +29,17 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo "Europe/Paris" > /etc
 COPY package*.json ./
 
 # install dependencies
-RUN npm install
+RUN npm install --only=production
 
 # copy all source files into app workdir
 COPY . .
 
+RUN chown -R node:node /usr/src/app
+
+
 # build app
 #RUN npm run build
-EXPOSE 3000
+EXPOSE 4000
 
 # run the app
-CMD "npm" "run" "start"
+CMD "npm" "start"

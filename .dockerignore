@@ -2,8 +2,9 @@ Dockerfile
 .dockerignore
 ./node_modules
 ./logs
+./data
 README.md
-.env.sample
 ./Procfile
 *.log
 *.sh
+.env
