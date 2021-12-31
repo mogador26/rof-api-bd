@@ -1,0 +1,45 @@
+version: "3.5"
+services:
+  mongodb:
+    container_name: mongo-api-rof
+    image: mongo:${MONGODB_VERSION:-4.0}
+    restart: unless-stopped
+    volumes:
+      - data-rof:/data/db
+      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME} 
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGO_USERNAME_DB: ${MONGO_USERNAME_DB}
+      MONGO_PASSWORD_DB: ${MONGO_PASSWORD_DB}
+    ports:
+      - "${MONGO_LOCAL_PORT}:${MONGO_DOCKER_PORT}"
+    networks:
+      - storage
+  app-api-rof:
+    container_name: app-api-rof
+    image: mogador26/api-rof:1.0
+    build: .
+    restart: unless-stopped
+    volumes:
+      - .:/app
+      - ./logs:/usr/src/app/error.log
+    env_file: ./.env
+    environment:
+      PORT: ${API_DOCKER_PORT}
+      WINDOW_TIME: 900000
+      MAX_REQUEST_BY_IP: 100
+      URL_DB: "mongodb://${MONGO_USERNAME_DB}:${MONGO_PASSWORD_DB}@mongodb:${MONGO_DOCKER_PORT}/${MONGO_INITDB_DATABASE}?retryWrites=true&w=majority"
+      LIMIT_SEARCH: 10
+    depends_on:
+      - mongodb
+    ports:
+      - "${API_LOCAL_PORT}:${API_DOCKER_PORT}"
+    networks:
+      - storage
+networks:
+  storage:
+   driver: bridge
+volumes:
+  data-rof:
