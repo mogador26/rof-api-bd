@@ -1,5 +1,5 @@
 const express = require('express')
-const { port, windowRequest, maxRequestByIp, dirLog, protocolDB, userDB, passDB, uriDB } = require('./config/config.js');
+const { port, windowRequest, maxRequestByIp, urlDB } = require('./config/config.js');
 const rateLimit = require("express-rate-limit");
 const morgan = require('morgan');
 const mongoose = require('mongoose');
@@ -10,20 +10,12 @@ const YAML = require('yamljs');
 const swaggerDocument = YAML.load('./swagger.yaml');
 
 var healthCheck = require('express-healthcheck');
-var urlDB="";
 
 // app
 const app = express()
 app.use(express.json())
 
 let options = { useNewUrlParser: true, useUnifiedTopology: true };
-if (userDB.length!=0 && passDB.length!=0){
-  urlDB = protocolDB +"://" + userDB + ":" + passDB + "@" + uriDB;
-}else{
-  urlDB = protocolDB +"://" + uriDB;
-}
-
-//urlDB = protocolDB + "://" + uriDB;
 
 console.log(urlDB);
 
