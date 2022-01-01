@@ -33,7 +33,7 @@ Cette API dépend du chargement des données effectuées depuis le projet [rof-l
 ### évolutions à prévoir
 
   - *fonctionnelle*
-    - [x] : ajout du numéro de siret
+    - [x] : ajout du numéro de siret :soon:
 
   - *technique*
     - [x] : modification du body pour la ressource geo (données opérateurs et coordonnées géographiques + distance kms)
