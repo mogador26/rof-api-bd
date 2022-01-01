@@ -129,22 +129,22 @@ npm run dev
 
 |Type  |Nom  |Valeur  |
 |--|--|--|
-|Mongo|MONGO_INITDB_ROOT_USERNAME|**_user admin_** |
-|Mongo|MONGO_INITDB_ROOT_PASSWORD|**_password admin_** |
-|Mongo|MONGO_INITDB_DATABASE|**_database_** |
-|Mongo|MONGO_USERNAME_DB|**_user db_** |
-|Mongo|MONGO_PASSWORD_DB|**_password db_** |
-|Mongo|MONGO_DOCKER_PORT|**_port docker pour le service mongo_** |
-|Mongo|MONGO_LOCAL_PORT|**_port local docker pour le service mongo_** |
-|API|PORT|**_port d'écoute nodejs_** |
-|API|WINDOW_TIME|**_WINDOW_TIME : 15 * 60 * 1000 # en ms (ici 15 minutes)_**|
-|API|MAX_REQUEST_BY_IP|**_nombre de requetes dans une fenêtre de 15 minutes_** |
-|API|LIMIT_SEARCH|**_limite du nombre d'enregistrement autorisé pour une recherche_** |
-|API|URL_DB|**_url de connexion à mongodb_** |
-|API|API_DOCKER_PORT|**_port docker pour le service app rof_** |
-|API|API_LOCAL_PORT<sup>1</sup>|**_port local docker_** |
+|Mongo|MONGO_INITDB_ROOT_USERNAME|**utilisateur admin** |
+|Mongo|MONGO_INITDB_ROOT_PASSWORD|**mot de passe admin** |
+|Mongo|MONGO_INITDB_DATABASE|**database** |
+|Mongo|MONGO_USERNAME_DB|**utilisateur db** |
+|Mongo|MONGO_PASSWORD_DB|**mot de passe db** |
+|Mongo|MONGO_DOCKER_PORT|**port docker pour le service mongo** |
+|Mongo|MONGO_LOCAL_PORT|**port local docker pour le service mongo** |
+|API|PORT|**port d'écoute nodejs** |
+|API|WINDOW_TIME|**_window_time_ : 15 * 60 * 1000 # en ms (ici 15 minutes)**|
+|API|MAX_REQUEST_BY_IP|**nombre de requetes dans une fenêtre de 15 minutes** |
+|API|LIMIT_SEARCH|**limite du nombre d'enregistrement autorisé pour une recherche** |
+|API|URL_DB|**url de connexion à mongodb** |
+|API|API_DOCKER_PORT|**port docker pour le service app rof** |
+|API|API_LOCAL_PORT<sup>1</sup>|**port local docker** |
   
-[1] : uniquement pour *docker-compose*
+<sup>[1]</sup> : uniquement pour *docker-compose*
 
 > *Note*: Les variables Mongo ne sont utilisées que dans le cadre de *docker-compose*.
 
@@ -170,6 +170,10 @@ npm run dev
        docker-compose -f ./docker-compose.yml down
        ```    
    - avec build image *api-rof*
+     - build
+       ```sh
+       docker-compose -f ./docker-compose-with-build-api.yml build
+       ```
      - start
        ```sh
        docker-compose -f ./docker-compose-with-build-api.yml up
