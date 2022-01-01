@@ -30,7 +30,7 @@ L'API permet d'effectuer des recherches par :
 Cette API dépend du chargement des données effectuées depuis le projet [rof-load-bd](https://github.com/mogador26/rof-load-bd.git?branch=master).
 
   
-#### évolutions à prévoir
+### évolutions à prévoir
 
   - *fonctionnelle*
     - [x] : ajout du numéro de siret
@@ -43,7 +43,7 @@ Cette API dépend du chargement des données effectuées depuis le projet [rof-l
 
  
 
-# Pré-requis
+## Pré-requis
 
   
 
@@ -51,7 +51,7 @@ Cette API dépend du chargement des données effectuées depuis le projet [rof-l
 
   
 
-# Installation
+## Installation
 
   
 
@@ -69,32 +69,28 @@ Cette API dépend du chargement des données effectuées depuis le projet [rof-l
 
 `npm install`
 
+
+  - **morgan** : traitement des logs
+
+  - **serve-favicon**
+
+  - **express-rate-limit** : limite d'accès par IP
+
+  - **dotenv** : chargement des variables d'environnement
+
+  - **swagger-ui-express** : chargement du swagger
+
+  - **yamljs** : prise en compte du format yaml pour le swagger
+
+  - **mongoose** : accès à une base de données mongodb
+
+  - **express-healthcheck** : état de l'api.
   
 
--  **morgan** : traitement des logs
+## Environnement
 
--  **serve-favicon**
 
--  **express-rate-limit** : limite d'accès par IP
-
--  **dotenv** : chargement des variables d'environnement
-
--  **swagger-ui-express** : chargement du swagger
-
--  **yamljs** : prise en compte du format yaml pour le swagger
-
--  **mongoose** : accès à une base de données mongodb
-
--  **express-healthcheck** : état de l'api.
-
-  
-
-# Environnement
-
-  
-
-## node.js (solo)
-
+### node.js (solo)
 
 - variables :
 
@@ -112,27 +108,24 @@ Cette API dépend du chargement des données effectuées depuis le projet [rof-l
 npm start
 ```
 
-
 - mode developpement avec nodemon :
 
 ```sh
 npm run dev
 ```
 
-## Heroku
+### Heroku
 
 - Un fichier *Procfile* est défini pour une utilisation dans un environnement Heroku :
 
   -  ``web: npm start``
 
 
-## Docker
+### Docker
 
   
+#### Variables
 
-### Variables
-
-  
 
 |Type  |Nom  |Valeur  |
 |--|--|--|
@@ -167,28 +160,26 @@ npm run dev
   - [x] : mongo v4
   - [x] : node.js
 
-    - sans build image *api-rof* :   
-      - start
-          ```sh
-          docker-compose -f ./docker-compose.yml up
-          ```
-      - stop
-        ```sh
-        docker-compose -f ./docker-compose.yml down
-        ```    
-    - avec build image *api-rof*
-      - start
-        ```sh
-        docker-compose -f ./docker-compose-with-build-api.yml up
-        ```
-      - stop
-        ```sh
-        docker-compose -f ./docker-compose-with-build-api.yml down
-        ```
+   - sans build image *api-rof* :   
+     - start
+         ```sh
+         docker-compose -f ./docker-compose.yml up
+         ```
+     - stop
+       ```sh
+       docker-compose -f ./docker-compose.yml down
+       ```    
+   - avec build image *api-rof*
+     - start
+       ```sh
+       docker-compose -f ./docker-compose-with-build-api.yml up
+       ```
+     - stop
+       ```sh
+       docker-compose -f ./docker-compose-with-build-api.yml down
+       ```
  
   
-  
-
 ## Présentations
 
 - Ajout de slides conçus avec [slides.com](https://slides.com/) / [reveal.js](https://revealjs.com/) qui présentent quelques fonctionnalités de l'API (./html/)
