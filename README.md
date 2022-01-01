@@ -1,4 +1,4 @@
-### API ROF
+# API ROF
 
   
 
@@ -36,7 +36,7 @@ Cette API dépend du chargement des données effectuées depuis le projet [rof-l
     - [x] : ajout du numéro de siret
 
   - *technique*
-     - [x] : modification du body pour la ressource geo (données opérateurs et coordonnées géographiques + distance kms)
+    - [x] : modification du body pour la ressource geo (données opérateurs et coordonnées géographiques + distance kms)
     - [x] : ajout du contrôle du body avec le body-parser
     - [x] : traitement des secrets d'accès à la base de données
     - [x] : déploiement automatisé
@@ -125,7 +125,6 @@ npm run dev
 
   -  ``web: npm start``
 
-  
 
 ## Docker
 
