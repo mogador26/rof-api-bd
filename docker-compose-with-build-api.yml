@@ -20,6 +20,7 @@ services:
   app-api-rof:
     container_name: app-api-rof
     image: mogador26/api-rof:1.0
+    build: .
     restart: unless-stopped
     volumes:
       - .:/app

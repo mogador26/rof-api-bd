@@ -1,7 +1,3 @@
 #!/bin/bash
-
-
-#build image
-docker build . -t mogador26/api-rof:v1.0
-
-
+echo "#build image...."
+docker build . -f ./Dockerfile  -t mogador26/api-rof:1.0
