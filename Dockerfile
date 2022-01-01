@@ -4,7 +4,6 @@ ARG http_proxy
 ARG https_proxy
 ARG npm_registry
 ARG no_proxy
-ARG API_DOCKER_PORT
 
 ENV PORT $API_DOCKER_PORT
 ENV NODE_ENV production
