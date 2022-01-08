@@ -8,6 +8,12 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+env:
+   PORT: 7000
+   WINDOW_TIME: 900000
+   MAX_REQUEST_BY_IP: 100
+   URL_DB: ${{ secrets.URL_DB_ATLAS }}
+   LIMIT_SEARCH: 10
 
 jobs:
   build:
@@ -26,13 +32,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-      env:
-        PORT: 7000
-        WINDOW_TIME: 900000
-        MAX_REQUEST_BY_IP: 100
-        URL_DB: ${{ secrets.URL_DB_ATLAS }}
-        LIMIT_SEARCH: 10
-
+   
     - run: npm ci
     - run: npm run build --if-present
     - run: npm run dev
