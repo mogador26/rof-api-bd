@@ -1,7 +1,8 @@
 name: Heroku CI/CD test
 on:
   push:
-    branches: feat*
+    branches:
+      - '!master'
   workflow_dispatch:
 jobs:
   build:
