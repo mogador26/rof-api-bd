@@ -36,5 +36,4 @@ jobs:
     - run: echo ${{ secrets.URL_DB_ATLAS }}
     - run: npm ci
     - run: npm run build --if-present
-    - run: npm run dev
-        
+       
