@@ -12,7 +12,7 @@ env:
    PORT: 8000
    WINDOW_TIME: 900000
    MAX_REQUEST_BY_IP: 100
-   URL_DB: "mongo+srv://user_r:QxhtlPNzK60foGju@cluster0.s4vtg.mongodb.net/rof-db?retryWrites=true&w=majority"
+   URL_DB: "mongo+srv://${{ secrets.USER_DB_ATLAS }}:${{ secrets.PASS_DB_ATLAS }}@${{secrets.URL_DB_ATLAS }}"
    LIMIT_SEARCH: 10
 
 jobs:
@@ -33,7 +33,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         
-    - run: echo ${{ secrets.URL_DB_ATLAS }}
+    - run: echo ${{ URL_DB }}
     - run: npm ci
     - run: npm run build --if-present
        
