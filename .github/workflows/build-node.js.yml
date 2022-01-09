@@ -38,5 +38,5 @@ jobs:
     - run: npm run dev &
     - run: |
           ps -ef | grep node
-          sudo apt get curl
+          sudo apt-get install curl
           curl http://localhost:8000/api/v1/operateurs_funeraires?code_departement=12
