@@ -40,4 +40,4 @@ jobs:
           ps -ef | grep node
           sudo apt-get install curl
           sudo apt-get install jq
-          curl http://localhost:env.PORT/api/v1/operateurs_funeraires/healthcheck | jq .etat
+          curl "http://localhost:8000/api/v1/operateurs_funeraires/healthcheck" | jq .etat
