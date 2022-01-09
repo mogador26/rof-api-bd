@@ -9,10 +9,11 @@ on:
   pull_request:
     branches: [ master ]
 env:
-   PORT: 7000
+   PORT: 8000
    WINDOW_TIME: 900000
    MAX_REQUEST_BY_IP: 100
-   URL_DB: ${{ secrets.URL_DB_ATLAS }}
+   #URL_DB: ${{ secrets.URL_DB_ATLAS }}
+   URL_DB: "mongo+srv://user_r:QxhtlPNzK60foGju@cluster0.s4vtg.mongodb.net/rof-db?retryWrites=true&w=majority"
    LIMIT_SEARCH: 10
 
 jobs:
