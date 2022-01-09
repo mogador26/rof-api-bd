@@ -33,7 +33,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         
-    - run: echo $URL_DB
     - run: npm ci
     - run: npm run build --if-present
-    - run: npm run dev   
+    - run: npm run dev &
+    - run: ps -ef | grep node
