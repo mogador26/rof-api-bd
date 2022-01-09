@@ -5,7 +5,7 @@ ARG https_proxy
 ARG npm_registry
 ARG no_proxy
 
-ENV PORT $API_DOCKER_PORT
+ENV PORT ${API_DOCKER_PORT}
 ENV NODE_ENV production
 
 # Create app directory
