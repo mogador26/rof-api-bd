@@ -41,7 +41,4 @@ jobs:
           sudo apt-get install curl
           sudo apt-get install jq
           resultat = `curl http://localhost:env.PORT/api/v1/operateurs_funeraires/healthcheck | jq .etat`
-          if: ${{ resultat == 'up' }}
-             exit 1
-          if: ${{ resultat != 'up' }}
-             exit 0
+          echo ${{ resultat }}
