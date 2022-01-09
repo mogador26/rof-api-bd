@@ -36,4 +36,7 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm run dev &
-    - run: ps -ef | grep node
+    - run: |
+          ps -ef | grep node
+          sudo apt get curl
+          curl http://localhost:8000/api/v1/operateurs_funeraires?code_departement=12
