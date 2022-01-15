@@ -26,7 +26,6 @@ jobs:
           WINDOW_TIME: 900000
           MAX_REQUEST_BY_IP: 100
           URL_DB: "mongodb+srv://${{ secrets.USER_DB_ATLAS }}:${{ secrets.PASS_DB_ATLAS }}@${{ secrets.URL_DB_ATLAS }}"
-
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
