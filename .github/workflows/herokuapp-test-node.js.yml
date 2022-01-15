@@ -23,10 +23,10 @@ jobs:
       - name: Create env file
         run: |
           cat << EOF > .env
-          PORT: 6000
-          WINDOW_TIME: 900000
-          MAX_REQUEST_BY_IP: 100
-          URL_DB: "mongodb+srv://${{ secrets.USER_DB_ATLAS }}:${{ secrets.PASS_DB_ATLAS }}@${{ secrets.URL_DB_ATLAS }}"
+          PORT=6000
+          WINDOW_TIME=900000
+          MAX_REQUEST_BY_IP=100
+          URL_DB="mongodb+srv://${{ secrets.USER_DB_ATLAS }}:${{ secrets.PASS_DB_ATLAS }}@${{ secrets.URL_DB_ATLAS }}"
           EOF
         
       - uses: akhileshns/heroku-deploy@v3.12.12
