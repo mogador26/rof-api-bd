@@ -37,6 +37,5 @@ jobs:
           useforce: true
           env_file: ".env"
           region: eu
-          branch: dev
           healthcheck: "https://${{ secrets.HEROKU_APP_NAME_TEST }}.herokuapp.com/api/v1/operateurs_funeraires/healthcheck"
           delay: 5
