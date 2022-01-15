@@ -31,12 +31,13 @@ jobs:
         
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "api-rof-test"
-          heroku_email: "hassan.driss@magic.fr"
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: "${{ secrets.HEROKU_APP_NAME_TEST }}"
+          heroku_email: "${{ secrets.HEROKU_EMAIL }}"
           useforce: true
           env_file: ".env"
           region: eu
-          healthcheck: "https://api-rof-test.herokuapp.com/api/v1/operateurs_funeraires/healthcheck"
-          checkstring: "up"
+          branch: dev
+          procfile: "web: npm start"
+          healthcheck: "https://${{ secrets.HEROKU_APP_NAME_TEST }}.herokuapp.com/api/v1/operateurs_funeraires/healthcheck"
           delay: 5
