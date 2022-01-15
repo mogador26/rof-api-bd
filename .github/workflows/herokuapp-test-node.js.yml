@@ -15,14 +15,27 @@ jobs:
           node-version: "14.x"
       - name: Install dependencies
         run: npm install
-
   deploy:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
       - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.12 
+      - name: Create env file
+        run: |
+          cat << EOF > .env
+          PORT=6000
+          WINDOW_TIME=900000
+          MAX_REQUEST_BY_IP=100
+          URL_DB="mongodb+srv://${{ secrets.USER_DB_ATLAS }}:${{ secrets.PASS_DB_ATLAS }}@${{ secrets.URL_DB_ATLAS }}"
+          EOF
+        
+      - uses: akhileshns/heroku-deploy@v3.12.12
         with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "api-rof-test"
-          heroku_email: "hassan.driss@magic.fr"
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: "${{ secrets.HEROKU_APP_NAME_TEST }}"
+          heroku_email: "${{ secrets.HEROKU_EMAIL }}"
+          useforce: true
+          env_file: ".env"
+          region: eu
+          healthcheck: "https://${{ secrets.HEROKU_APP_NAME_TEST }}.herokuapp.com/api/v1/operateurs_funeraires/healthcheck"
+          delay: 5
