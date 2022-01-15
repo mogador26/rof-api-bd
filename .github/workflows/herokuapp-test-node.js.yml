@@ -19,7 +19,6 @@ jobs:
     needs: [build]
     steps:
       - uses: actions/checkout@v2
-      - name: environnement
         env:
           PORT: 6000
           WINDOW_TIME: 900000
