@@ -38,6 +38,5 @@ jobs:
           env_file: ".env"
           region: eu
           branch: dev
-          procfile: "web: npm start"
           healthcheck: "https://${{ secrets.HEROKU_APP_NAME_TEST }}.herokuapp.com/api/v1/operateurs_funeraires/healthcheck"
           delay: 5
