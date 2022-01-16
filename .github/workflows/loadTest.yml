@@ -19,7 +19,7 @@ jobs:
         run: mkdir reports
 
       - name: Execute load tests
-        run: /home/node/artillery/bin/artillery run --output reports/report.json tests/api_rof.yaml
+        run: /home/node/artillery/bin/artillery run --output reports/report.json test/api_rof.yaml
 
       - name: Generate HTML report
         run: /home/node/artillery/bin/artillery report --output reports/report reports/report.json
