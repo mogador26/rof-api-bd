@@ -187,6 +187,8 @@ npm run dev
 
 ### Tests de charge
 
+[![loadTest](https://github.com/mogador26/api-rof-bd/workflows/loadTest/badge.svg)](https://github.com/mogador26/api-rof-bd/actions?query=workflow%3A%22loadTest%22)
+
 Les tests de charge sont réalisés avec [artillery](https://www.artillery.io/) et [github actions](https://www.artillery.io/docs/guides/integration-guides/github-actions).
 
 Les scénarios sont décrits sous le répertoire./test et les données sont identifiées dans le fichier [keywords](./test/keywords_rof.csv).
