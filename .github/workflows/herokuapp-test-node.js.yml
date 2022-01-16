@@ -1,4 +1,4 @@
-name: Heroku CI/CD with test healtheck
+name: CI/CD - Heroku with test healtheck
 on:
   push:
     branches:
