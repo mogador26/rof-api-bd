@@ -3,7 +3,7 @@ name: Artillery API ROF Load Test
 on:
   push:
     branches:
-      - !master
+      - master
 
 jobs:
   artillery:
