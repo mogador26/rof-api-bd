@@ -182,8 +182,30 @@ npm run dev
        ```sh
        docker-compose -f ./docker-compose-with-build-api.yml down
        ```
- 
+
+## Tests
+
+### Tests de charge
+
+Les tests de charge sont réalisés avec [artillery](https://www.artillery.io/) et [github actions](https://www.artillery.io/docs/guides/integration-guides/github-actions).
+
+Les scénarios sont décrits sous le répertoire./test et les données sont identifiées dans le fichier [keywords](./test/keywords_rof.csv).
+
+La forme du fichier est :
+|code_departement|code_postal|prestations|critères|sort|desc|limit|
+|----------------|-----------|-----------|-----------------------|---|-----|-----|
+|*le code departement*|*le code postal*|*le type de prestations*|*critères de recherches pour search?q=*|*tri*|*ordre du tri*|*limit du nombre d'éléments renvoyés*|
+
+- Exemples
   
+|code_departement|code_postal|prestations|critères|sort|desc|limit|
+|----------------|-----------|-----------|-----------------------|---|-----|-----|
+|78|78000|Organisation des obsèques||raison_sociale||5
+|75|75000|Soins de conservation||raison_sociale||10
+|35|32000|Soins de conservation||raison_sociale||5
+
+
+
 ## Présentations
 
 - Ajout de slides conçus avec [slides.com](https://slides.com/) / [reveal.js](https://revealjs.com/) qui présentent quelques fonctionnalités de l'API (./html/)

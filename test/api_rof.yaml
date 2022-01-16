@@ -1,0 +1,45 @@
+config:
+  target: "https://api-rof-test.herokuapp.com/api/v1/operateurs_funeraires"
+  http:
+    extendedMetrics: true
+    #plugins:
+    #metrics-by-endpoint:
+      # Group metrics by request name rather than URL:
+      #  useOnlyRequestNames: true
+  phases:
+    - duration: 30
+      arrivalRate: 10
+      name: "phase duration 30 arrivaleRate 10"
+  payload:
+    path: "./keywords_rof.csv"
+    fields:
+      - "code_departement"
+      - "code_postal"
+      - "prestations"
+      - "searchq"
+      - "sort"
+      - "desc"
+      - "limit"
+scenarios:
+  - name: "by code_departement"
+    flow:
+      - get:
+          url: "/"
+          qs:
+             code_departement: "{{ code_departement }}"
+  - name: "by code_departement and prestations"
+    flow:
+      - get:
+          url: "/"
+          qs:
+             code_departement: "{{ code_departement }}"
+             prestations: "{{ prestations }}"
+  - name: "by code_departement and prestations and sort"
+    flow:
+      - get:
+          url: "/"
+          qs:
+             code_departement: "{{ code_departement }}"
+             prestations: "{{ prestations }}"
+             sort: "{{ sort }}"
+             limit: "{{ limit }}"
