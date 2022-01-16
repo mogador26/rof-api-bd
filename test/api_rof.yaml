@@ -11,11 +11,12 @@ config:
       arrivalRate: 10
       name: "phase duration 30 arrivaleRate 10"
   payload:
-    path: "keywords_rof.csv"
+    path: "./keywords_rof.csv"
     fields:
       - "code_departement"
       - "code_postal"
       - "prestations"
+      - "searchq"
       - "sort"
       - "desc"
       - "limit"
