@@ -7,9 +7,9 @@ config:
       # Group metrics by request name rather than URL:
       #  useOnlyRequestNames: true
   phases:
-    - duration: 30
-      arrivalRate: 10
-      name: "phase duration 30 arrivaleRate 10"
+    - duration: 20
+      arrivalRate: 7
+      name: "phase duration 20 arrivaleRate 7"
   payload:
     path: "./keywords_rof.csv"
     fields:
