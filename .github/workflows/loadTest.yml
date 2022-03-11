@@ -24,6 +24,9 @@ jobs:
 
       - name: Find artillery
         run: find / -name "artillery"
+      
+      - name: test bin artillery
+        run: /home/node/artillery run
         
       - name: Execute load tests
         run: /home/node/artillery/bin/artillery run --output reports/report.json test/api_rof.yaml
