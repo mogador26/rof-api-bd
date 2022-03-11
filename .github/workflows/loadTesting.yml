@@ -1,1 +1,20 @@
+name: load testing by artillery
+on: 
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  load-test-api-rof:
+    runs-on: ubuntu-latest
+    name: A load test api-rof
+    steps:
+    - uses: actions/checkout@master
+    - name: Load Test action step
+      id: load-test
+      uses: kenju/github-actions-artillery@master
+      with:
+        filepath: ./test/api_rof.yaml
+        
 
