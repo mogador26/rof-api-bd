@@ -22,6 +22,9 @@ jobs:
       - name: Make reports directory
         run: mkdir reports
 
+      - name: Find artillery
+        run: find / -name "artillery"
+        
       - name: Execute load tests
         run: /home/node/artillery/bin/artillery run --output reports/report.json test/api_rof.yaml
 
