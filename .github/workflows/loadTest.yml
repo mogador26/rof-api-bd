@@ -12,7 +12,7 @@ jobs:
   artillery:
     runs-on: ubuntu-latest
 
-    container: artilleryio/artillery:latest
+    container: artilleryio/artillery:1.6.2
 
     steps:
       - name: Checkout repository
@@ -36,4 +36,4 @@ jobs:
         with:
           name: artillery-test-report
           path: reports/*
-          retention-days: 5
+          retention-days: 2
