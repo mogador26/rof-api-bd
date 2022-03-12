@@ -23,7 +23,7 @@ jobs:
         run: mkdir reports
 
       - name: Find artillery
-        run: find / -name "artillery" -maxdepth 6 -ls
+        run: find /home -name "artillery" -maxdepth 6
         
       - name: Execute load tests
         run: /home/node/artillery/bin/artillery run --output reports/report.json test/api_rof.yaml
