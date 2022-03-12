@@ -46,3 +46,4 @@ jobs:
           region: eu
           healthcheck: "https://${{ secrets.HEROKU_APP_NAME }}.herokuapp.com/api/v1/operateurs_funeraires/healthcheck"
           delay: 5
+          dontuseforce: false
