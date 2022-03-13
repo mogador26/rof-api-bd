@@ -37,13 +37,14 @@ jobs:
           URL_DB="mongodb+srv://${{ secrets.USER_DB_ATLAS }}:${{ secrets.PASS_DB_ATLAS }}@${{ secrets.URL_DB_ATLAS }}"
           EOF
         
-      - uses: akhileshns/heroku-deploy@v3.12.12
+      - uses: akhileshns/heroku-deploy@master
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: "${{ secrets.HEROKU_APP_NAME }}"
+          heroku_app_name: "api-rof-bd"
           heroku_email: "${{ secrets.HEROKU_EMAIL }}"
           env_file: ".env"
           region: eu
-          healthcheck: "https://${{ secrets.HEROKU_APP_NAME }}.herokuapp.com/api/v1/operateurs_funeraires/healthcheck"
+          healthcheck: "https://api-rof-bd.herokuapp.com/api/v1/operateurs_funeraires/healthcheck"
+          checkstring: '"base":"connected"'
           delay: 5
           dontuseforce: false
