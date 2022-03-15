@@ -44,17 +44,5 @@ jobs:
           heroku_email: "${{ secrets.HEROKU_EMAIL }}"
           env_file: ".env"
           region: eu
-          delay: 5
-          dontuseforce: false
-        env:
-          PORT: 6000
-          WINDOW_TIME: 900000
-          MAX_REQUEST_BY_IP: 100
-          URL_DB: "mongodb+srv://${{ secrets.USER_DB_ATLAS }}:${{ secrets.PASS_DB_ATLAS }}@${{ secrets.URL_DB_ATLAS }}"
-      - name: checkdeploy
-        if: success()
-        run: |
-             - run: |
-                curl "http://api-rof-bd.herokuapp.com/api/v1/operateurs_funeraires/healthcheck" | jq .etat
-                echo "🍏 This job's status is ${{ job.status }}."
-      
+          delay: 15
+          useforce: true      
