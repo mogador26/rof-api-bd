@@ -46,3 +46,9 @@ jobs:
           region: eu
           delay: 5
           dontuseforce: false
+      - name: checkdeploy
+        if: success()
+        run: |
+            curl -v k https://api-rof-bd.herokuapp.com/api/v1/operateurs_funeraires/healthcheck
+          
+      
