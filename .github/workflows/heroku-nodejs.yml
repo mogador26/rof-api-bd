@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI/CD - Heroku with healthcheck
+name: CI/CD - Heroku
 
 # Controls when the workflow will run
 on:
@@ -44,7 +44,5 @@ jobs:
           heroku_email: "${{ secrets.HEROKU_EMAIL }}"
           env_file: ".env"
           region: eu
-          healthcheck: "https://api-rof-bd.herokuapp.com/api/v1/operateurs_funeraires/healthcheck"
-          checkstring: '"base":"connected"'
           delay: 5
           dontuseforce: false
