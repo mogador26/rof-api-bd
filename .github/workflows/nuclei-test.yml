@@ -1,0 +1,15 @@
+name: nuclei-test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name : install nuclei
+      - run: |
+            go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest
+            nuclei -u https://${{ secrets.HEROKU_APP_NAME }}.herokuapp.com/
+
+             
