@@ -45,4 +45,3 @@ jobs:
           env_file: ".env"
           region: eu
           delay: 15
-          useforce: true      
