@@ -44,4 +44,4 @@ jobs:
           heroku_email: "${{ secrets.HEROKU_EMAIL }}"
           env_file: ".env"
           region: eu
-          delay: 15
+          delay: 60
