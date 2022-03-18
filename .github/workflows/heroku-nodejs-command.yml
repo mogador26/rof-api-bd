@@ -20,13 +20,13 @@ jobs:
     - name: Build and push
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        MAX_REQUEST_BY_IP: 100
-        PORT: 3000
-        WINDOW_TIME: 900000
-        URL_DB: "mongodb+srv://${{ secrets.USER_DB_ATLAS }}:${{ secrets.PASS_DB_ATLAS }}@${{secrets.URL_DB_ATLAS }}"
-        LIMIT_SEARCH: 10
       run: heroku container:push -a ${{ secrets.HEROKU_APP_NAME }} web 
     - name: Release
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        MAX_REQUEST_BY_IP: 100
+        PORT: 9000
+        WINDOW_TIME: 900000
+        URL_DB: "mongodb+srv://${{ secrets.USER_DB_ATLAS }}:${{ secrets.PASS_DB_ATLAS }}@${{secrets.URL_DB_ATLAS }}"
+        LIMIT_SEARCH: 10
       run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web 
