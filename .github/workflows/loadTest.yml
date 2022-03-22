@@ -1,9 +1,6 @@
 name: Artillery API ROF Load Test
 
 on:
-  push:
-    branches:
-      - master
   
   workflow_dispatch:    
   schedule:
