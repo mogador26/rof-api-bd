@@ -187,7 +187,7 @@ npm run dev
 
 ### Tests de charge
 
-[![loadTest](https://github.com/mogador26/api-rof-bd/workflows/loadTest/badge.svg)](https://github.com/mogador26/api-rof-bd/actions?query=workflow%3A%22loadTest%22)
+[loadTest](https://github.com/mogador26/rof-api-bd/blob/master/.github/workflows/loadTest.yml)
 
 Les tests de charge sont réalisés avec [artillery](https://www.artillery.io/) et [github actions](https://www.artillery.io/docs/guides/integration-guides/github-actions).
 
