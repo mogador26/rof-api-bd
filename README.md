@@ -1,6 +1,7 @@
 # API ROF
 
-  
+ ![build](https://github.com/mogador26/rof-api-bd/actions/workflows/build-node.js.yml/badge.svg) ![Push To Heroku](https://github.com/mogador26/rof-api-bd/actions/workflows/heroku-nodejs-command.yml/badge.svg) ![codeQL](https://github.com/mogador26/rof-api-bd/actions/workflows/codeql-analysis.yml/badge.svg)![LoadTesting](https://github.com/mogador26/rof-api-bd/actions/workflows/loadTest.yml/badge.svg) ![nuclei](https://github.com/mogador26/rof-api-bd/actions/workflows/nuclei.yml/badge.svg) 
+ 
 
 ## Objectif
 
