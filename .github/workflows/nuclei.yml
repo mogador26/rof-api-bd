@@ -18,6 +18,7 @@ jobs:
         uses: projectdiscovery/nuclei-action@main
         with:
           target: https://${{ secrets.HEROKU_APP_NAME }}.herokuapp.com/api
+          flags: "-severity critical,high,medium,low -stats"
 
       - name: GitHub Workflow artifacts
         uses: actions/upload-artifact@v2
