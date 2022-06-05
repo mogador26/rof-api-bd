@@ -9,6 +9,7 @@ ENV PORT ${API_DOCKER_PORT}
 ENV NODE_ENV production
 
 # Create app directory
+
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
@@ -33,8 +34,8 @@ RUN npm install --only=production
 # copy all source files into app workdir
 COPY . .
 
+RUN chown -R node:node /usr/src/app
 USER node
-#RUN chown -R node:node /usr/src/app
 
 EXPOSE $API_DOCKER_PORT
 
