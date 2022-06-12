@@ -18,8 +18,6 @@ jobs:
         uses: projectdiscovery/nuclei-action@main
         with:
           target: https://${{ secrets.HEROKU_APP_NAME }}.herokuapp.com/api
-          github-report: true
-          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: GitHub Workflow artifacts
         uses: actions/upload-artifact@v2
