@@ -42,8 +42,9 @@ const limiter = rateLimit({
 
 //Middleware
 
-// handle the limiter only for the api
+// handle the limiter only for the api et slides-api
 app.use("/api", limiter);
+app.use('/slides-api',limiter);
 
 // Serve Favicon
 var favicon = require('serve-favicon');
