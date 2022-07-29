@@ -30,4 +30,14 @@ jobs:
     - name: Release
       env:
         HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
-      run: heroku container:release -a ${{secrets.HEROKU_APP_NAME}} web 
+      run: heroku container:release -a ${{secrets.HEROKU_APP_NAME}} web
+      
+    - name: EthicalCheck
+        # You may pin to the exact commit or the version.
+        # uses: apisec-inc/ethicalcheck-action@3ec5e93b42e591349e46635da9f909bac66c23a9
+      uses: apisec-inc/ethicalcheck-action@v1.0.4
+      with:
+          # The Open API Specification or public Postman collection URL.
+          oas-url: https://${{secrets.HEROKU_APP_NAME}}.herokuapp.com/api/v1/operateurs_funeraires/api-docs/
+          # The email address to which the API penetration test report will be sent.
+          email: ${github.user.name}} 
