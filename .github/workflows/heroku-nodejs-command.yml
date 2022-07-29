@@ -40,4 +40,4 @@ jobs:
           # The Open API Specification or public Postman collection URL.
           oas-url: https://${{secrets.HEROKU_APP_NAME}}.herokuapp.com/api/v1/operateurs_funeraires/api-docs/
           # The email address to which the API penetration test report will be sent.
-          email: ${github.user.name}} 
+          email: ${{secrets.HEROKU_EMAIL}} 
