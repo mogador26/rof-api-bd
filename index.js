@@ -60,7 +60,7 @@ app.use(function(req, res, next) {
     res.set('Permissions-Policy','accelerometer=(),ambient-light-sensor=(),autoplay=(),battery=(),camera=(),display-capture=(),document-domain=(),encrypted-media=(),fullscreen=(),gamepad=(),geolocation=(),gyroscope=(),layout-animations=(self),legacy-image-formats=(self),magnetometer=(),microphone=(),midi=(),oversized-images=(self),payment=(),picture-in-picture=(),publickey-credentials-get=(),speaker-selection=(),sync-xhr=(self),unoptimized-images=(self),unsized-media=(self),usb=(),screen-wake-lock=(),web-share=(),xr-spatial-tracking=()');
     res.set('X-Permitted-Cross-Domain-Policies','none');
     res.set('Referrer-Policy','no-referrer');
-    res.set('Clear-Site-Data','"cache","cookies","storage"');
+    //res.set('Clear-Site-Data','"cache","cookies","storage"');
     res.set('Cross-Origin-Embedder-Policy','require-corp');
     res.set('Cross-Origin-Opener-Policy','same-origin');
     res.set('Cross-Origin-Resource-Policy','same-origin');
@@ -87,7 +87,6 @@ app.get('/api/v1/operateurs_funeraires', ops.getOperateursFunerairesByParam, (re
 app.post('/api/v1/operateurs_funeraires/geo/', opsGeo.getOperateursFunerairesByGeo, (req, res, next) => {
     res.set('Content-Type', 'application/json;charset=utf-8');  
     res.send();
-
 })
 
 app.get('/slides-api', function(req, res) {
@@ -99,7 +98,6 @@ app.get('/slides-api', function(req, res) {
 app.use('/api/v1/operateurs_funeraires/api-docs', function(req, res, next) {
     swaggerDocument.host = req.get('host');
     req.swaggerDoc = swaggerDocument;
-    res.set('Content-Type', 'application/html;charset=utf-8');
     next();
 }, swaggerUi.serve, swaggerUi.setup());
 
