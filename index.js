@@ -82,6 +82,7 @@ app.get('/api/v1/operateurs_funeraires', ops.getOperateursFunerairesByParam, (re
 })
 
 // ressource de recherche par coordonnées géographiques
+
 app.post('/api/v1/operateurs_funeraires/geo/', opsGeo.getOperateursFunerairesByGeo, (req, res, next) => {
    
     res.send();
@@ -89,6 +90,7 @@ app.post('/api/v1/operateurs_funeraires/geo/', opsGeo.getOperateursFunerairesByG
 })
 
 app.get('/slides-api', function(req, res) {
+    res.set('Content-Type', 'application/html;charset=utf-8');
     res.sendFile(__dirname + '/html/slides-deck-api-rof.html');
 });
 
@@ -97,6 +99,7 @@ app.get('/slides-api', function(req, res) {
 app.use('/api/v1/operateurs_funeraires/api-docs', function(req, res, next) {
     swaggerDocument.host = req.get('host');
     req.swaggerDoc = swaggerDocument;
+    res.set('Content-Type', 'application/html;charset=utf-8');
     next();
 }, swaggerUi.serve, swaggerUi.setup());
 
