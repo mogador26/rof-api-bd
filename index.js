@@ -1,7 +1,6 @@
 const express = require('express')
 const { port, windowRequest, maxRequestByIp, urlDB } = require('./config/config.js');
 const rateLimit = require("express-rate-limit");
-const morgan = require('morgan');
 const mongoose = require('mongoose');
 const ops = require('./controller/operateursFuneraires.js');
 const opsGeo = require('./controller/operateursFunerairesGeo')
@@ -50,8 +49,6 @@ app.use('/slides-api',limiter);
 var favicon = require('serve-favicon');
 app.use(favicon('favicon.ico'));
 
-//log
-app.use(morgan('combined'));
 
 // ressource de type /search?q=
 app.get('/api/v1/operateurs_funeraires/search', ops.getOperateursFunerairesBySearch, (req, res, next) => {
@@ -70,6 +67,12 @@ app.get('/api/v1/operateurs_funeraires', ops.getOperateursFunerairesByParam, (re
 app.post('/api/v1/operateurs_funeraires/geo/', opsGeo.getOperateursFunerairesByGeo, (req, res, next) => {
 
     res.setHeader('Content-Type', 'application/json;charset=utf-8');
+    // recommendations owasp http headers
+    // https://owasp.org/www-project-secure-headers/#div-bestpractices
+    res.setHeader('Strict-Transport-Security','max-age=31536000; includeSubDomains');
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    res.setHeader('X-Content-Type-Options','nosniff');
+    res.removeHeader('X-Powered-By');
     res.send();
 
 })
@@ -103,6 +106,12 @@ app.use('/api/v1/operateurs_funeraires/healthcheck', require('express-healthchec
 // ressource par identifiant technique
 app.get('/api/v1/operateurs_funeraires/:id', ops.getOperateursFunerairesById, (req, res, next) => {
     res.setHeader('Content-Type', 'application/json;charset=utf-8');
+    // recommendations owasp http headers
+    // https://owasp.org/www-project-secure-headers/#div-bestpractices
+    res.setHeader('Strict-Transport-Security','max-age=31536000; includeSubDomains');
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    res.setHeader('X-Content-Type-Options','nosniff');
+    res.removeHeader('X-Powered-By');
     res.send();
 })
 
