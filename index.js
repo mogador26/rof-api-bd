@@ -50,6 +50,7 @@ var favicon = require('serve-favicon');
 app.use(favicon('favicon.ico'));
 
 app.use(function(req, res, next) {
+
     res.setHeader('Content-Type', 'application/json;charset=utf-8');
     // recommendations owasp http headers
     // @link https://owasp.org/www-project-secure-headers/#div-bestpractices
@@ -67,7 +68,7 @@ app.use(function(req, res, next) {
 
     next();
     
-})
+});
 
 // ressource de type /search?q=
 app.get('/api/v1/operateurs_funeraires/search', ops.getOperateursFunerairesBySearch, (req, res, next) => {
