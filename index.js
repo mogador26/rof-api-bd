@@ -56,7 +56,7 @@ app.use(function(req, res, next) {
     res.set('Strict-Transport-Security','max-age=31536000; includeSubDomains');
     res.set('X-Frame-Options', 'deny');
     res.set('X-Content-Type-Options','nosniff');
-    res.set('Content-Security-Policy',"'default-src 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests; block-all-mixed-content'");
+    res.set('Content-Security-Policy',"'default-src 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests'");
     res.set('Permissions-Policy','accelerometer=(),ambient-light-sensor=(),autoplay=(),battery=(),camera=(),display-capture=(),document-domain=(),encrypted-media=(),fullscreen=(),gamepad=(),geolocation=(),gyroscope=(),layout-animations=(self),legacy-image-formats=(self),magnetometer=(),microphone=(),midi=(),oversized-images=(self),payment=(),picture-in-picture=(),publickey-credentials-get=(),speaker-selection=(),sync-xhr=(self),unoptimized-images=(self),unsized-media=(self),usb=(),screen-wake-lock=(),web-share=(),xr-spatial-tracking=()');
     res.set('X-Permitted-Cross-Domain-Policies','none');
     res.set('Referrer-Policy','no-referrer');
