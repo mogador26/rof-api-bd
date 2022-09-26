@@ -49,6 +49,25 @@ app.use('/slides-api',limiter);
 var favicon = require('serve-favicon');
 app.use(favicon('favicon.ico'));
 
+app.use(function(req, res, next) {
+    res.setHeader('Content-Type', 'application/json;charset=utf-8');
+    // recommendations owasp http headers
+    // @link https://owasp.org/www-project-secure-headers/#div-bestpractices
+    res.setHeader('Strict-Transport-Security','max-age=31536000; includeSubDomains');
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    res.setHeader('X-Content-Type-Options','nosniff');
+    res.setHeader('Content-Security-Policy','default-src ''self''; object-src ''none''; frame-ancestors ''none''; upgrade-insecure-requests; block-all-mixed-content');
+    res.setHeader('X-Permitted-Cross-Domain-Policies','none');
+    res.setHeader('Referrer-Policy','no-referrer');
+    res.setHeader('Clear-Site-Data','"cache","cookies","storage"');
+    res.setHeader('Cross-Origin-Embedder-Policy','require-corp');
+    res.setHeader('Cross-Origin-Opener-Policy','same-origin');
+    res.setHeader('Cross-Origin-Resource-Policy','same-origin');
+    res.removeHeader('X-Powered-By');
+
+    next();
+    
+})
 
 // ressource de type /search?q=
 app.get('/api/v1/operateurs_funeraires/search', ops.getOperateursFunerairesBySearch, (req, res, next) => {
@@ -58,21 +77,14 @@ app.get('/api/v1/operateurs_funeraires/search', ops.getOperateursFunerairesBySea
 
 // ressource et filtre paramètres 
 app.get('/api/v1/operateurs_funeraires', ops.getOperateursFunerairesByParam, (req, res, next) => {
-    res.setHeader('Content-Type', 'application/json;charset=utf-8');
+    //res.setHeader('Content-Type', 'application/json;charset=utf-8');
     res.send();
 })
 
 // ressource de recherche par coordonnées géographiques
 
 app.post('/api/v1/operateurs_funeraires/geo/', opsGeo.getOperateursFunerairesByGeo, (req, res, next) => {
-
-    res.setHeader('Content-Type', 'application/json;charset=utf-8');
-    // recommendations owasp http headers
-    // https://owasp.org/www-project-secure-headers/#div-bestpractices
-    res.setHeader('Strict-Transport-Security','max-age=31536000; includeSubDomains');
-    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
-    res.setHeader('X-Content-Type-Options','nosniff');
-    res.removeHeader('X-Powered-By');
+   
     res.send();
 
 })
@@ -105,13 +117,7 @@ app.use('/api/v1/operateurs_funeraires/healthcheck', require('express-healthchec
 
 // ressource par identifiant technique
 app.get('/api/v1/operateurs_funeraires/:id', ops.getOperateursFunerairesById, (req, res, next) => {
-    res.setHeader('Content-Type', 'application/json;charset=utf-8');
-    // recommendations owasp http headers
-    // https://owasp.org/www-project-secure-headers/#div-bestpractices
-    res.setHeader('Strict-Transport-Security','max-age=31536000; includeSubDomains');
-    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
-    res.setHeader('X-Content-Type-Options','nosniff');
-    res.removeHeader('X-Powered-By');
+    //res.setHeader('Content-Type', 'application/json;charset=utf-8');
     res.send();
 })
 
