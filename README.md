@@ -70,9 +70,6 @@ Cette API dépend du chargement des données effectuées depuis le projet [rof-l
 
 `npm install`
 
-
-  ~~ - **morgan** : traitement des logs~~
-
   - **serve-favicon**
 
   - **express-rate-limit** : limite d'accès par IP
@@ -211,4 +208,4 @@ La forme du fichier est :
 
 ## Présentations
 
-- Ajout de slides conçus avec [slides.com](https://slides.com/) / [reveal.js](https://revealjs.com/) qui présentent quelques fonctionnalités de l'API (./html/)
+- Ajout de slides conçus avec [slides.com](https://slides.com/) / [reveal.js](https://revealjs.com/) qui présentent quelques [fonctionnalités de l'API](https://mogador26.github.io/rof-api-bd/slides-api-rof.html) (./docs/)
