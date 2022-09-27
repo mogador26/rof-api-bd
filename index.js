@@ -49,30 +49,8 @@ app.use('/slides-api',limiter);
 var favicon = require('serve-favicon');
 app.use(favicon('favicon.ico'));
 
-// ressource de type /search?q=
-app.get('/api/v1/operateurs_funeraires/search', ops.getOperateursFunerairesBySearch, (req, res, next) => {
-    res.set('Content-Type', 'application/json;charset=utf-8');
-        // recommendations owasp http headers
-    // @link https://owasp.org/www-project-secure-headers/#div-bestpractices
-    res.set('Strict-Transport-Security','max-age=31536000; includeSubDomains');
-    res.set('X-Frame-Options', 'deny');
-    res.set('X-Content-Type-Options','nosniff');
-    res.set('Content-Security-Policy',"'default-src 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests'");
-    res.set('Permissions-Policy','accelerometer=(),ambient-light-sensor=(),autoplay=(),battery=(),camera=(),display-capture=(),document-domain=(),encrypted-media=(),fullscreen=(),gamepad=(),geolocation=(),gyroscope=(),layout-animations=(self),legacy-image-formats=(self),magnetometer=(),microphone=(),midi=(),oversized-images=(self),payment=(),picture-in-picture=(),publickey-credentials-get=(),speaker-selection=(),sync-xhr=(self),unoptimized-images=(self),unsized-media=(self),usb=(),screen-wake-lock=(),web-share=(),xr-spatial-tracking=()');
-    res.set('X-Permitted-Cross-Domain-Policies','none');
-    res.set('Referrer-Policy','no-referrer');
-    res.set('Clear-Site-Data','"cache","cookies","storage"');
-    res.set('Cross-Origin-Embedder-Policy','require-corp');
-    res.set('Cross-Origin-Opener-Policy','same-origin');
-    res.set('Cross-Origin-Resource-Policy','same-origin');
-    res.removeHeader('X-Powered-By');
+app.use(function(req, res, next) {
 
-    res.send();
-})
-
-// ressource et filtre paramètres 
-app.get('/api/v1/operateurs_funeraires', ops.getOperateursFunerairesByParam, (req, res, next) => {
-    res.set('Content-Type', 'application/json;charset=utf-8');
     // recommendations owasp http headers
     // @link https://owasp.org/www-project-secure-headers/#div-bestpractices
     res.set('Strict-Transport-Security','max-age=31536000; includeSubDomains');
@@ -88,6 +66,19 @@ app.get('/api/v1/operateurs_funeraires', ops.getOperateursFunerairesByParam, (re
     res.set('Cross-Origin-Resource-Policy','same-origin');
     res.removeHeader('X-Powered-By');
 
+    next();
+    
+})
+
+// ressource de type /search?q=
+app.get('/api/v1/operateurs_funeraires/search', ops.getOperateursFunerairesBySearch, (req, res, next) => {
+    res.set('Content-Type', 'application/json;charset=utf-8');
+    res.send();
+})
+
+// ressource et filtre paramètres 
+app.get('/api/v1/operateurs_funeraires', ops.getOperateursFunerairesByParam, (req, res, next) => {
+    res.set('Content-Type', 'application/json;charset=utf-8');
     res.send();
 })
 
@@ -95,25 +86,11 @@ app.get('/api/v1/operateurs_funeraires', ops.getOperateursFunerairesByParam, (re
 
 app.post('/api/v1/operateurs_funeraires/geo/', opsGeo.getOperateursFunerairesByGeo, (req, res, next) => {
     res.set('Content-Type', 'application/json;charset=utf-8');  
-    // recommendations owasp http headers
-    // @link https://owasp.org/www-project-secure-headers/#div-bestpractices
-    res.set('Strict-Transport-Security','max-age=31536000; includeSubDomains');
-    res.set('X-Frame-Options', 'deny');
-    res.set('X-Content-Type-Options','nosniff');
-    res.set('Content-Security-Policy',"'default-src 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests'");
-    res.set('Permissions-Policy','accelerometer=(),ambient-light-sensor=(),autoplay=(),battery=(),camera=(),display-capture=(),document-domain=(),encrypted-media=(),fullscreen=(),gamepad=(),geolocation=(),gyroscope=(),layout-animations=(self),legacy-image-formats=(self),magnetometer=(),microphone=(),midi=(),oversized-images=(self),payment=(),picture-in-picture=(),publickey-credentials-get=(),speaker-selection=(),sync-xhr=(self),unoptimized-images=(self),unsized-media=(self),usb=(),screen-wake-lock=(),web-share=(),xr-spatial-tracking=()');
-    res.set('X-Permitted-Cross-Domain-Policies','none');
-    res.set('Referrer-Policy','no-referrer');
-    res.set('Clear-Site-Data','"cache","cookies","storage"');
-    res.set('Cross-Origin-Embedder-Policy','require-corp');
-    res.set('Cross-Origin-Opener-Policy','same-origin');
-    res.set('Cross-Origin-Resource-Policy','same-origin');
-    res.removeHeader('X-Powered-By');
-
     res.send();
 })
 
 app.get('/slides-api', function(req, res) {
+    res.removeHeader(Cross-Origin-Resource-Policy);
     res.sendFile(__dirname + '/html/slides-deck-api-rof.html');
 });
 
@@ -142,21 +119,6 @@ app.use('/api/v1/operateurs_funeraires/healthcheck', require('express-healthchec
 // ressource par identifiant technique
 app.get('/api/v1/operateurs_funeraires/:id', ops.getOperateursFunerairesById, (req, res, next) => {
     res.set('Content-Type', 'application/json;charset=utf-8');
-    // recommendations owasp http headers
-    // @link https://owasp.org/www-project-secure-headers/#div-bestpractices
-    res.set('Strict-Transport-Security','max-age=31536000; includeSubDomains');
-    res.set('X-Frame-Options', 'deny');
-    res.set('X-Content-Type-Options','nosniff');
-    res.set('Content-Security-Policy',"'default-src 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests'");
-    res.set('Permissions-Policy','accelerometer=(),ambient-light-sensor=(),autoplay=(),battery=(),camera=(),display-capture=(),document-domain=(),encrypted-media=(),fullscreen=(),gamepad=(),geolocation=(),gyroscope=(),layout-animations=(self),legacy-image-formats=(self),magnetometer=(),microphone=(),midi=(),oversized-images=(self),payment=(),picture-in-picture=(),publickey-credentials-get=(),speaker-selection=(),sync-xhr=(self),unoptimized-images=(self),unsized-media=(self),usb=(),screen-wake-lock=(),web-share=(),xr-spatial-tracking=()');
-    res.set('X-Permitted-Cross-Domain-Policies','none');
-    res.set('Referrer-Policy','no-referrer');
-    res.set('Clear-Site-Data','"cache","cookies","storage"');
-    res.set('Cross-Origin-Embedder-Policy','require-corp');
-    res.set('Cross-Origin-Opener-Policy','same-origin');
-    res.set('Cross-Origin-Resource-Policy','same-origin');
-    res.removeHeader('X-Powered-By');
-
     res.send();
 })
 
