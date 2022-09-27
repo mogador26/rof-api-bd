@@ -91,7 +91,7 @@ app.post('/api/v1/operateurs_funeraires/geo/', opsGeo.getOperateursFunerairesByG
 
 app.get('/slides-api', function(req, res) {
     res.set('Cross-Origin-Resource-Policy','cross-origin');
-    res.sendFile(__dirname + '/docs/slides-deck-api-rof.html');
+    res.sendFile(__dirname + '/docs/slides-api-rof.html');
 });
 
 // Middleware
