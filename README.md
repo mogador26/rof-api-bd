@@ -71,7 +71,7 @@ Cette API dépend du chargement des données effectuées depuis le projet [rof-l
 `npm install`
 
 
-  - **morgan** : traitement des logs
+  ~~ - **morgan** : traitement des logs~~
 
   - **serve-favicon**
 
