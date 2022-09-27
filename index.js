@@ -41,9 +41,8 @@ const limiter = rateLimit({
 
 //Middleware
 
-// handle the limiter only for the api et slides-api
+// handle the limiter only for the api
 app.use("/api", limiter);
-app.use('/slides-api',limiter);
 
 // Serve Favicon
 var favicon = require('serve-favicon');
@@ -68,31 +67,27 @@ app.use(function(req, res, next) {
 
     next();
     
-})
+});
 
 // ressource de type /search?q=
 app.get('/api/v1/operateurs_funeraires/search', ops.getOperateursFunerairesBySearch, (req, res, next) => {
     res.set('Content-Type', 'application/json;charset=utf-8');
     res.send();
-})
+});
 
 // ressource et filtre paramètres 
 app.get('/api/v1/operateurs_funeraires', ops.getOperateursFunerairesByParam, (req, res, next) => {
     res.set('Content-Type', 'application/json;charset=utf-8');
     res.send();
-})
+});
 
 // ressource de recherche par coordonnées géographiques
 
 app.post('/api/v1/operateurs_funeraires/geo/', opsGeo.getOperateursFunerairesByGeo, (req, res, next) => {
     res.set('Content-Type', 'application/json;charset=utf-8');  
     res.send();
-})
-
-app.get('/slides-api', function(req, res) {
-    res.set('Cross-Origin-Resource-Policy','cross-origin');
-    res.sendFile(__dirname + '/docs/slides-api-rof.html');
 });
+
 
 // Middleware
 // swagger api operateurs funéraires
@@ -120,8 +115,8 @@ app.use('/api/v1/operateurs_funeraires/healthcheck', require('express-healthchec
 app.get('/api/v1/operateurs_funeraires/:id', ops.getOperateursFunerairesById, (req, res, next) => {
     res.set('Content-Type', 'application/json;charset=utf-8');
     res.send();
-})
+});
 
 app.listen(port, () => {
     console.log("Serveur à l'écoute sur le port " + port)
-})
+});
