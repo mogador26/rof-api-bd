@@ -1,0 +1,7 @@
+dashboard:
+  enabled: true
+  domain: traefik-ui.minikube
+kubernetes:
+  namespaces:
+    - default
+    - kube-system
