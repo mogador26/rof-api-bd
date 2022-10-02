@@ -1,5 +1,9 @@
 Dockerfile
+docker-compose.yml
+docker-compose-with-build-api.yml
+run_heroku_api-rof-bd.sh
 .dockerignore
+./convert
 ./node_modules
 ./logs
 ./data
@@ -8,5 +12,6 @@ README.md
 *.log
 *.sh
 .env
+.env.sample
 ./test
 ./docs
