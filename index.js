@@ -9,10 +9,13 @@ const YAML = require('yamljs');
 const swaggerDocument = YAML.load('./swagger.yaml');
 
 var healthCheck = require('express-healthcheck');
+var morgan = require('morgan')
 
-// app
 const app = express()
 app.use(express.json())
+
+//log
+app.use(morgan('combined'));
 
 let options = { useNewUrlParser: true, useUnifiedTopology: true };
 
