@@ -15,11 +15,11 @@ const app = express()
 app.use(express.json())
 
 //log
-app.use(morgan('combined'));
+app.use(morgan(':remote-addr - :remote-user [:date[iso]] ":method :url HTTP/:http-version" :status :res[content-length]'));
 
 let options = { useNewUrlParser: true, useUnifiedTopology: true };
 
-console.log(urlDB);
+//console.log(urlDB);
 
 mongoose.connect(urlDB, options);
 var myDB = mongoose.connection;
