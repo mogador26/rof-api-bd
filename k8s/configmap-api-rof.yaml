@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-rof
+data:
+  # property-like keys; each key maps to a simple value
+  port: "3000"
+  window_time: "900000"
+  max_request_by_ip: "100"
+  limit_search: "10"
+  
