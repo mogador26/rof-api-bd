@@ -1,0 +1,50 @@
+version: "3.5"
+services:
+  mongodb:
+    container_name: mongo
+    image: mongo:${MONGODB_VERSION:-4.0}
+    restart: unless-stopped
+    volumes:
+      - data-rof:/data/db
+      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME} 
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGO_USERNAME_DB: ${MONGO_USERNAME_DB}
+      MONGO_PASSWORD_DB: ${MONGO_PASSWORD_DB}
+    labels:
+      - traefik.enable=false     
+    ports:
+      - "${MONGO_LOCAL_PORT}:${MONGO_DOCKER_PORT}"
+    networks:
+      - storage
+  api:
+    container_name: api-rof
+    image: api-rof:1.0
+    restart: unless-stopped
+    volumes:
+      - .:/app
+      - ./logs:/usr/src/app/error.log
+    environment:
+      PORT: ${API_DOCKER_PORT}
+      WINDOW_TIME: 900000
+      MAX_REQUEST_BY_IP: 100
+      URL_DB: "mongodb://${MONGO_USERNAME_DB}:${MONGO_PASSWORD_DB}@mongodb:${MONGO_DOCKER_PORT}/${MONGO_INITDB_DATABASE}?retryWrites=true&w=majority"
+      LIMIT_SEARCH: 10
+    labels:
+      - traefik.http.routers.api-rof.rule=path(`/rof`)
+      - traefik.http.routers.api-rof.tls=true
+      - traefik.http.routers.api-rof.tls.certresolver=lets-encrypt
+      - traefik.port=80
+    depends_on:
+      - mongodb
+    ports:
+      - "${API_LOCAL_PORT}:${API_DOCKER_PORT}"
+    networks:
+      - storage
+networks:
+  storage:
+   external: false
+volumes:
+  data-rof:

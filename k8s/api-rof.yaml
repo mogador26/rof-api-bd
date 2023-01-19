@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - name: api-rof
-          image: localhost:32000/api-rof:latest
+          image: mogador26/api-rof:1.0
           ports:
             - containerPort: 3000
           env:
@@ -51,5 +51,5 @@ spec:
                   name: api-rof           # The ConfigMap this value comes from.
                   key: limit_search 
             - name: URL_DB
-              value: mongodb://mongo:27017/rof
+              value: mongodb://mongo:27017/rof-bd
           imagePullPolicy: Always
