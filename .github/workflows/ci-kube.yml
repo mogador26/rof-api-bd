@@ -25,7 +25,11 @@ jobs:
         docker images        
     - name: Deploy to minikube
       run:
-        kubectl apply -f deploy-to-minikube.yaml
+        kubectl apply -f ./k8s/api-rof.yaml
+        kubectl apply -f ./k8s/configmap-api-rof.yaml
+        kubectl apply -f ./k8s/mongo.yaml
+        kubectl apply -f ./k8s/secret-api.yaml
+        kubectl apply -f ./k8s/secret-mongo-rof.yaml
     - name: Test service URLs
       run: |
         minikube service list
