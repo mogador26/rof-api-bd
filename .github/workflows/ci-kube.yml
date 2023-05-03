@@ -24,7 +24,7 @@ jobs:
         echo -n "verifying images:"
         docker images        
     - name: Deploy to minikube
-      run:
+      run: |
         kubectl apply -f ./k8s/api-rof.yaml
         kubectl apply -f ./k8s/configmap-api-rof.yaml
         kubectl apply -f ./k8s/mongo.yaml
