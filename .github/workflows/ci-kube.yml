@@ -35,8 +35,8 @@ jobs:
         minikube service list
         minikube service api-rof --url
         echo "------------------opening the service------------------"
-        export URL=`minikube service api-rof --url`
         $(minikube service api-rof --url)
+        export URL = $(minikube service api-rof --url)
         echo ${URL}
         export RESSOURCES = "/api/v1/operateurs_funeraires/api-docs/"
         export URL = ${URL}${RESSOURCES} 
