@@ -35,4 +35,4 @@ jobs:
         minikube service list
         minikube service api-rof --url
         echo "------------------opening the service------------------"
-        curl $(minikube service api-rof --url)    
+        curl --verbose $(minikube service api-rof --url)    
