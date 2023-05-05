@@ -34,5 +34,7 @@ jobs:
       run: |
         minikube service list
         minikube service api-rof --url
+        kubectl get svc -A
+        kubcetl get pods -A
         echo "------------------opening the service------------------"
         curl --verbose $(minikube service api-rof --url)    
