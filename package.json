@@ -27,7 +27,7 @@
         "mongoose": "^7.0.3",
         "morgan": "^1.10.0",
         "serve-favicon": "^2.5.0",
-        "swagger-ui-express": "^4.6.2",
+        "swagger-ui-express": "^4.6.3",
         "yamljs": "^0.3.0"
     },
     "repository": {
