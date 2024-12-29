@@ -1,0 +1,9 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: rof-api-bd
+  annotations:
+    github.com/project-slug: mogador26/rof-api-bd
+spec:
+  type: other
+  lifecycle: unknown
