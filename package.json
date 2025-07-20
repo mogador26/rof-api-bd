@@ -25,7 +25,7 @@
         "express-healthcheck": "^0.1.0",
         "express-rate-limit": "^6.10.0",
         "mongoose": "^7.4.2",
-        "morgan": "^1.10.0",
+        "morgan": "^1.10.1",
         "serve-favicon": "^2.5.0",
         "swagger-ui-express": "^4.6.2",
         "yamljs": "^0.3.0"
